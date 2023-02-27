@@ -23,4 +23,6 @@ Encontrar as dicas, passar para o outro jogador e então se encontrarem, fugir d
 
 ## Receita:
 
+Propagandas, Versão premium, Venda de vidas, venda de ajudas. 
+
 
