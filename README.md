@@ -12,6 +12,7 @@ O Incrivel Hulk;
 The warder (minecraft);
 João e Maria caçadores de bruxas;
 The last of us;
+Pokemon (jogos);
 
 ## Objetivos:
 
