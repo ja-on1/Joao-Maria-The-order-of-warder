@@ -31,6 +31,8 @@ Caso haja uma falha na comunicação entre os jogadores e passem a dica errada t
 
 ## O jogo Ideal:
 
+Dois irmãos, sem pais, perdidos, vivem em um mundo distópico. A terra como conhecemos não é mais a mesma depois das experiências científicas do governo que saíram do controle. Qual o resultado? Um monstro escapou do laboratório, ele devastou o mundo junto com um vírus que se prolifera como praga por onde passa. Não existem evidências do que aconteceu com o restante da população, o que acontece com os que entram em contato com esse ser terrível? Ao longo do jogo eles vão descobrindo o que aconteceu com seus pais, uma talvez vacina pode salvar a vida deles. Será que esses irmãos estão realmente sozinhos nesse novo mundo? Eles precisam sobreviver e tomar cuidado com o monstro e com o vírus que se espalha com uma gosma cada vez mais agressiva. Por conta de situações que fugiram do controle, os dois estão separados e juntos precisam se ajudar para achar uma forma de sobreviver, eles estão começando a ser afetados pelo vírus, o tempo está se esgotando, juntos fazemos a força. Maria (nome fictício) está presa dentro de casa e precisa da ajuda de João e das dicas que ele encontrará na floresta para que possa sair de dentro da casa, Maria precisa encontrar dicas para que João ache o caminho de volta para a casa da família. 
+
 ## Receita:
 
 Propagandas, Versão premium, Venda de vidas, venda de ajudas. 
