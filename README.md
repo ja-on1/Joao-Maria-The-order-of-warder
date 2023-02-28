@@ -16,9 +16,18 @@ Pokemon (jogos);
 
 ## Objetivos:
 
-Encontrar as dicas, passar para o outro jogador e então se encontrarem, fugir do monstro, sobreviver.
+Encontrarem-se e sobreviver.
 
 ## Regras:
+
+Jogar de forma colaborativa;
+Encontrar as dicas;
+Jogo 2D;
+Multiplayer;
+Jogador toma dano (perde uma vida) ao encontrar o monstro;
+Os jogadores não podem passar por cima da gosma deixada pelo monstro;
+Caso passem por cima da gosma tomam dano também;
+Caso haja uma falha na comunicação entre os jogadores e passem a dica errada terá um jumpscare;
 
 ## O jogo Ideal:
 
