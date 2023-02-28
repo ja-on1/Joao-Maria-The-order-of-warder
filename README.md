@@ -7,27 +7,27 @@ Jogo multiplayer com mapa dividido, no qual cada player está em um cenário dif
 
 ## Referencias:
 
-The witcher house; 
-O Incrivel Hulk; 
-The warder (minecraft);
-João e Maria caçadores de bruxas;
-The last of us;
-Pokemon (jogos);
+- The witcher house; 
+- O Incrivel Hulk; 
+- The warder (minecraft);
+- João e Maria caçadores de bruxas;
+- The last of us;
+- Pokemon (jogos);
 
 ## Objetivos:
 
-Encontrarem-se e sobreviver.
+- Encontrarem-se e sobreviver.
 
 ## Regras:
 
-Jogar de forma colaborativa;
-Encontrar as dicas;
-Jogo 2D;
-Multiplayer;
-Jogador toma dano (perde uma vida) ao encontrar o monstro;
-Os jogadores não podem passar por cima da gosma deixada pelo monstro;
-Caso passem por cima da gosma tomam dano também;
-Caso haja uma falha na comunicação entre os jogadores e passem a dica errada terá um jumpscare;
+- Jogar de forma colaborativa;
+- Encontrar as dicas;
+- Jogo 2D;
+- Multiplayer;
+- Jogador toma dano (perde uma vida) ao encontrar o monstro;
+- Os jogadores não podem passar por cima da gosma deixada pelo monstro;
+- Caso passem por cima da gosma tomam dano também;
+- Caso haja uma falha na comunicação entre os jogadores e passem a dica errada terá um jumpscare;
 
 ## O jogo Ideal:
 
@@ -35,6 +35,9 @@ Dois irmãos, sem pais, perdidos, vivem em um mundo distópico. A terra como con
 
 ## Receita:
 
-Propagandas, Versão premium, Venda de vidas, venda de ajudas. 
+- Propagandas;
+- Versão premium;
+- Venda de vidas;
+- Venda de ajudas. 
 
 
