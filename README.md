@@ -19,11 +19,18 @@ Dois irmãos chamados João & Maria vivem em um mundo distópico na qual a terra
 
 ## Regras:
 
-- Jogar de forma colaborativa (multiplayer);
-- Encontrar as dicas;
-- Jogador toma dano (perde uma vida) ao encontrar o monstro;
-- Os jogadores não podem passar por cima do vírus deixado pelo monstro, caso passem por cima tomam dano (perde uma vida);
-- Caso haja uma falha na comunicação entre os jogadores e passem a dica errada terá um jumpscare;
+- Encontrar as dicas (ficam salvas no inventário);
+- Multiplayer;
+- Multimapas, cenas diferentes (casa, floresta…);
+- Programação Javascript na parte cliente;
+- Sistema de menu
+- Sistema de dano (ao bater de frente com o monstro, passar em cima da gosma
+- Sistema de Jumpscare (ao tomar qualquer tipo de dano, ao inserir dicas erradas);
+- Sistema de colisão;
+- Sistema de coleta de objetos (mapa, lanterna…);
+- Sistema de diálogo, servidor - cliente;
+- Sistema de inventário;
+
 
 ## O jogo Ideal:
 
