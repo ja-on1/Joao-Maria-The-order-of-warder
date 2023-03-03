@@ -2,8 +2,7 @@
 
 ## Premissa: 
 
-Jogo multiplayer com mapa dividido, no qual cada player está em um cenário diferente e objetivo final é que se encontrem, onde ambos precisam achar dicas e concluir puzzles (caso erre três vezes o jogo e os puzzles resetam) para se auxiliarem a avançar no jogo. Temática de terror. Toda vez que errar um puzzle terá jumpscare. Distopia, onde os seres humanos “morreram” por conta do vírus do monstro (o monstro foi uma experiência que saiu do controle) e só restaram os dois irmãos que tiveram que se separar e fugir por conta de medidas extremas ao longo do jogo os dois tem que sobreviver e se encontrarem.
- 
+Dois irmãos chamados João & Maria vivem em um mundo distópico na qual a terra não é mais a mesma. Uma criatura horrível fugiu do governo e se espalhou transformando todo o ambiente em algo que não se sabe exatamente o que é. As pessoas estão desaparecendo. Investigue e resolva desafios para conseguir descobrir como os irmãos podem se encontrar novamente dentro do terreno de sua própria casa.  
 
 ## Referencias:
 
