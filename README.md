@@ -2,7 +2,7 @@
 
 ## Premissa: 
 
-Dois irmãos chamados João & Maria vivem em um mundo distópico na qual a terra não é mais a mesma. Uma criatura horrível fugiu do governo e se espalhou transformando todo o ambiente em algo que não se sabe exatamente o que é. As pessoas estão desaparecendo. Investigue e resolva desafios para conseguir descobrir como os irmãos podem se encontrar novamente dentro do terreno de sua própria casa.  
+Dois irmãos chamados João & Maria vivem em um mundo distópico na qual a terra não é mais a mesma. Uma criatura horrível fugiu do governo e se espalhou, transformando todo o ambiente em algo que não se sabe exatamente o que é. As pessoas estão desaparecendo. Investigue e resolva desafios para conseguir descobrir como os irmãos podem se encontrar novamente dentro do terreno de sua própria casa.  
 
 ## Referencias:
 
