@@ -38,7 +38,7 @@ Dois irmãos, sem pais, perdidos, vivem em um mundo distópico. A terra como con
 
 Será que esses irmãos estão realmente sozinhos nesse novo mundo? 
 
-Eles precisam sobreviver e tomar cuidado com o monstro e com o vírus que se espalha com uma vírus cada vez mais agressivo. Por conta de situações que fugiram do controle, os dois estão separados e juntos precisam se ajudar para achar uma forma de sobreviver, eles estão começando a ser afetados pelo vírus, o tempo está se esgotando, juntos fazemos a força. 
+Eles precisam sobreviver e tomar cuidado com o monstro e com o vírus que se espalha com uma vírus cada vez mais agressivo. Por conta de situações inesperadas, os dois estão separados e juntos precisam se ajudar para achar uma forma de sobreviver, eles estão começando a ser afetados pelo vírus, o tempo está se esgotando, juntos fazemos a força. 
 
 Maria está presa dentro de casa e precisa da ajuda de João e das dicas que ele encontrará na floresta para que possa rever seu irmão e se proteger contra a criatura. João e Maria precisam encontrar dicas para que João ache o caminho de volta à casa da família, enquanto descobrem segredos sobre sua própria família. 
 
