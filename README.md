@@ -47,6 +47,7 @@ Maria está presa dentro de casa e precisa da ajuda de João e das dicas que ele
 - Propagandas;
 - Venda de dicas;
 - Venda de vidas;
-- Venda de ajudas. 
+- Venda de ajudas;
+- Versão Premium. 
 
 
