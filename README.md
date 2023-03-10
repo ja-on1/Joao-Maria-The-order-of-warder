@@ -2,7 +2,7 @@
 
 ## Premissa: 
 
-Dois irmãos chamados João & Maria vivem em um mundo distópico na qual a terra não é mais a mesma. Uma criatura horrível fugiu do governo e se espalhou, transformando todo o ambiente em algo que não se sabe exatamente o que é. As pessoas estão desaparecendo. Investigue e resolva desafios para conseguir descobrir como os irmãos podem se encontrar novamente dentro do terreno de sua própria casa.  
+2 irmãos chamados João & Maria vivem em um mundo distópico na qual a terra não é mais a mesma. Uma criatura horrível fugiu do governo e se espalhou, transformando todo o ambiente em algo que não se sabe exatamente o que é. As pessoas estão desaparecendo. Investigue e resolva desafios para conseguir descobrir como os irmãos podem se encontrar novamente dentro do terreno de sua própria casa.  
 
 ## Referencias:
 
@@ -24,7 +24,7 @@ Dois irmãos chamados João & Maria vivem em um mundo distópico na qual a terra
 - Multimapas, cenas diferentes (casa, floresta…);
 - Programação Javascript na parte cliente;
 - Sistema de menu
-- Sistema de dano (ao bater de frente com o monstro, passar em cima da gosma
+- Sistema de dano (ao bater de frente com o monstro, passar em cima da gosma)
 - Sistema de Jumpscare (ao tomar qualquer tipo de dano, ao inserir dicas erradas);
 - Sistema de colisão;
 - Sistema de coleta de objetos (mapa, lanterna…);
