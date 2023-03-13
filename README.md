@@ -12,6 +12,7 @@ Dois irmãos chamados João & Maria vivem em um mundo distópico na qual a terra
 - João e Maria caçadores de bruxas;
 - The last of us;
 - Pokemon (jogos);
+- Stardew Valley;
 
 ## Objetivos:
 
