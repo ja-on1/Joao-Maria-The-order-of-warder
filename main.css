@@ -7,9 +7,9 @@ html {
 
 .center {
   position: absolute;
-  left: 50%; /* Vai ficar bem no meio do eixo x
-  top: 50%; /* Vai ficar bem no meio do eixo y 
-  transform: translate(-50%, -50%); /* Aqui é alterações para as paginas da web, os de baixo tambem
+  left: 50%; /* Vai ficar bem no meio do eixo x */
+  top: 50%; /* Vai ficar bem no meio do eixo y */
+  transform: translate(-50%, -50%); /* Aqui é alterações para as paginas da web, os de baixo tambem */
   -ms-transform: translate(-50%, -50%); 
   -webkit-transform: translate(-50%, -50%);
 }
