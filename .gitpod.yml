@@ -6,7 +6,7 @@
 
 tasks:
   - init: npm install
-    command: node servidor.js
+    command: npm start 
 
 ports:
   - port: 3000

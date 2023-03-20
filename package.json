@@ -1,5 +1,26 @@
 {
+  "name": "joao-maria-the-order-of-warder",
+  "version": "0.1.0",
+  "description": "jogo web com suporte a webRTC",
+  "main": "servidor.js",
   "dependencies": {
     "express": "^4.18.2"
-  }
+  },
+  "scripts": {
+    "start": "node servidor.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ja-on1/Joao-Maria-The-order-of-warder.git"
+  },
+  "keywords": [
+    "web",
+    "webRTC"
+  ],
+  "author": "Maria Carolina Hammes <maria.cho@aluno.ifsc.edu.br>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ja-on1/Joao-Maria-The-order-of-warder/issues"
+  },
+  "homepage": "https://github.com/ja-on1/Joao-Maria-The-order-of-warder#readme"
 }
