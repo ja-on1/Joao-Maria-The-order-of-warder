@@ -1,11 +1,11 @@
 // Configuração do jogo
 import config from "./config.js";
 // Cena de abertura
-import CenaDeAbertura from ",/cena.js";
+import CenaDeAbertura from "./cena-abertura.js";
 // Cena principal
-import CenaPrincipal from ",/cena.js";
+import CenaPrincipal from "./cena-principal.js";
 // Cena de Encerramento
-import CenaDeencerramento from ",/cena.js";
+import CenaDeencerramento from "./cena-fim-do-jogo.js";
 
 class Game extends Phaser.Game{
   constructor() {
