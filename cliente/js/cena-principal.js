@@ -102,7 +102,8 @@ export default class principal extends Phaser.Scene {
     });
     this.jogador_1.anims.play("jogador-1-esquerda", true);
     //
-    this.jogador_2 = this.physics.add.sprite(400, 225, "Maria");
+    // Jogador 2 
+    this.jogador_2 = this.add.sprite(400, 225, "Maria");
     this.anims.create({
       key: "jogador-2-baixo",
       frames: this.anims.generateFrameNumbers("Maria", {
