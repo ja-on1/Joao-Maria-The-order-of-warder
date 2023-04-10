@@ -20,12 +20,12 @@ export default class principal extends Phaser.Scene {
       frameHeight: 50,
     });
     //
-    this.load.spritesheet("Maria", "./assets/players/Maria.png", {
+    this.load.spritesheet("Maria", "./assets/players/maria.png", {
       frameWidth: 32,
       frameHeight: 50,
     });
     // *Botões */
-    this.load.spritsheet("cima", "./assets/botao.png", {
+    this.load.spritesheet("botao", "./assets/botões/botao.png", {
       frameWidth: 64,
       frameHeight: 64,
     })
@@ -106,15 +106,83 @@ export default class principal extends Phaser.Scene {
     });
     this.jogador_1.anims.play("jogador-1-direita", true);
     //
-    // Jogador 2 
+    /* Jogador 2 */
     this.jogador_2 = this.add.sprite(400, 225, "Maria");
+
+    /* Botões */
+    this.botao_cima = this.add
+      .sprite(100, 325, "botao", 0)
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.botao_cima.setFrame(1);
+        this.jogador_1.setVelocityY(-50);
+        this.jogador_1.anims.play("jogador-1-cima")
+      })
+      .on("pointerup", () => {
+        this.botao_cima.setFrame(0)
+        this.jogador_1.setVelocityY(0);
+      });
+    this.botao_baixo = this.add
+      .sprite(100, 415, "botao", 2)
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.botao_baixo.setFrame(3)
+        this.jogador_1.setVelocityY(50);
+        this.jogador_1.anims.play("jogador-1-baixo")
+      })
+      .on("pointerup", () => {
+        this.botao_baixo.setFrame(2)
+        this.jogador_1.setVelocityY(0);
+      });
+    this.botao_esquerda = this.add
+      .sprite(50, 370, "botao", 4)
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.botao_esquerda.setFrame(5)
+        this.jogador_1.setVelocityX(-50);
+        this.jogador_1.anims.play("jogador-1-esquerda")
+      })
+      .on("pointerup", () => {
+        this.botao_esquerda.setFrame(4)
+        this.jogador_1.setVelocityX(0);
+      });
+    this.botao_direita = this.add
+      .sprite(150, 370, "botao", 6)
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.botao_direita.setFrame(7)
+        this.jogador_1.setVelocityX(50);
+        this.jogador_1.anims.play("jogador-1-direita")
+      })
+      .on("pointerup", () => {
+        this.botao_direita.setFrame(6)
+        this.jogador_1.setVelocityX(0);
+      });
+    this.botao_menu = this.add
+      .sprite(400, 400, "botao", 12)
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.botao_menu.setFrame(13)
+      })
+      .on("pointerup", () => {
+        this.botao_menu.setFrame(12)
+      });
+    this.botao_a = this.add
+      .sprite(750, 400, "botao", 8)
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.botao_a.setFrame(9)
+      })
+      .on("pointerup", () => {
+        this.botao_a.setFrame(8)
+      });
     /* Colisões por tile */
-    this.terreno.setCollisionByProperty({ collides: true });
-    this.ARCas.setCollisionByProperty({ collides: true });
+    //this.terreno.setCollisionByProperty({ collides: true });
+    //this.ARCas.setCollisionByProperty({ collides: true });
 
     /* Colisão entre personagem 1 e mapa (por layer) */
-    this.physics.add.collider(this.jogador_1, this.terreno, null, null, this);
-    this.physics.add.collider(this.jogador_1, this.ARCas, null, null, this);
+    //this.physics.add.collider(this.jogador_1, this.terreno, null, null, this);
+    //this.physics.add.collider(this.jogador_1, this.ARCas, null, null, this);
   }
 
   update() {}
