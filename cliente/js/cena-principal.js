@@ -15,7 +15,7 @@ export default class principal extends Phaser.Scene {
     this.load.image("mochila", "./assets/Mochila.png");
     //
     //
-    this.load.spritesheet("João", "./assets/players/João.png", {
+    this.load.spritesheet("João", "./assets/players/joao.png", {
       frameWidth: 28,
       frameHeight: 55,
     });
@@ -104,7 +104,13 @@ export default class principal extends Phaser.Scene {
     //
     // Jogador 2 
     this.jogador_2 = this.add.sprite(400, 225, "Maria");
-    
+    /* Colisões por tile */
+    this.terreno.setCollisionByProperty({ collides: true });
+    this.ARCas.setCollisionByProperty({ collides: true });
+
+    /* Colisão entre personagem 1 e mapa (por layer) */
+    this.physics.add.collider(this.jogador_1, this.terreno, null, null, this);
+    this.physics.add.collider(this.jogador_1, this.ARCas, null, null, this);
   }
 
   update() {}
