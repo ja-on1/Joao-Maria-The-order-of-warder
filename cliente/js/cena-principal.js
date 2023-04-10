@@ -16,14 +16,19 @@ export default class principal extends Phaser.Scene {
     //
     //
     this.load.spritesheet("João", "./assets/players/joao.png", {
-      frameWidth: 28,
-      frameHeight: 55,
+      frameWidth: 32,
+      frameHeight: 50,
     });
     //
     this.load.spritesheet("Maria", "./assets/players/Maria.png", {
-      frameWidth: 28,
-      frameHeight: 55,
+      frameWidth: 32,
+      frameHeight: 50,
     });
+    // *Botões */
+    this.load.spritsheet("cima", "./assets/botao.png", {
+      frameWidth: 64,
+      frameHeight: 64,
+    })
   }
 
   create() {
@@ -54,7 +59,6 @@ export default class principal extends Phaser.Scene {
       0,
       0
     );
-
       //
       // jogador 1
     this.jogador_1 = this.physics.add.sprite(200, 225, "João");
@@ -81,7 +85,7 @@ export default class principal extends Phaser.Scene {
     this.jogador_1.anims.play("jogador-1-cima", true);
     //
     this.anims.create({
-      key: "jogador-1-direita",
+      key: "jogador-1-esquerda",
       frames: this.anims.generateFrameNumbers("João", {
         start: 8,
         end: 11,
@@ -89,10 +93,10 @@ export default class principal extends Phaser.Scene {
       frameRate: 7,
       repeat: -1,
     });
-    this.jogador_1.anims.play("jogador-1-direita", true);
+    this.jogador_1.anims.play("jogador-1-esquerda", true);
     //
     this.anims.create({
-      key: "jogador-1-esquerda",
+      key: "jogador-1-direita",
       frames: this.anims.generateFrameNumbers("João", {
         start: 12,
         end: 15,
@@ -100,7 +104,7 @@ export default class principal extends Phaser.Scene {
       frameRate: 7,
       repeat: -1,
     });
-    this.jogador_1.anims.play("jogador-1-esquerda", true);
+    this.jogador_1.anims.play("jogador-1-direita", true);
     //
     // Jogador 2 
     this.jogador_2 = this.add.sprite(400, 225, "Maria");
