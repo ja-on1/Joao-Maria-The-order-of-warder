@@ -4,27 +4,31 @@ export default class principal extends Phaser.Scene {
   }
 
   preload() {
-    //
     // Mapa
-    // Tilemap
-    this.load.tilemapTiledJSON("mapa-principal", "./assets/chao.json");
-    //
-    // Tilesets
+    /* Tilemap */
+    this.load.tilemapTiledJSON(
+      "mapa-principal",
+      "./assets/chao.json"
+    );
+
+    /* Tilesets */
     this.load.image("chao", "./assets/tileset.png");
     this.load.image("casa", "./assets/casa.png");
     this.load.image("mochila", "./assets/Mochila.png");
-    //
-    //
+    
+    /* Personagem 1 */
     this.load.spritesheet("João", "./assets/players/joao.png", {
       frameWidth: 32,
       frameHeight: 50,
     });
-    //
+    
+    /* Personagem 2 */
     this.load.spritesheet("Maria", "./assets/players/maria.png", {
       frameWidth: 32,
       frameHeight: 50,
     });
-    // *Botões */
+    
+    / *Botões */
     this.load.spritesheet("botao", "./assets/botões/botao.png", {
       frameWidth: 64,
       frameHeight: 64,
@@ -33,11 +37,12 @@ export default class principal extends Phaser.Scene {
 
   create() {
     //Mapa
-    //Tilemap
+    /* Tilemap */
     this.mapa_principal = this.make.tilemap({
       key: "mapa-principal",
     });
-    //tilesets
+
+    /* tilesets */
     this.tileset_principal_chao =
       this.mapa_principal.addTilesetImage("chao", "chao");
     this.tileset_principal_casa =
@@ -59,9 +64,10 @@ export default class principal extends Phaser.Scene {
       0,
       0
     );
-      //
-      // jogador 1
+
+      /* jogador 1 */
     this.jogador_1 = this.physics.add.sprite(200, 225, "João");
+
     this.anims.create({
       key: "jogador-1-baixo",
       frames: this.anims.generateFrameNumbers("João", {
@@ -106,6 +112,16 @@ export default class principal extends Phaser.Scene {
     });
     this.jogador_1.anims.play("jogador-1-direita", true);
     //
+    this.anims.create({
+      key: "jogador-1-parado",
+      frames: this.anims.generateFrameNumbers("João", {
+        start: 0,
+        end: 0,
+      }),
+      frameRate: 1,
+    });
+    this.jogador_1.anims.play("jogador-1-parado", true);
+
     /* Jogador 2 */
     this.jogador_2 = this.add.sprite(400, 225, "Maria");
 
@@ -176,13 +192,14 @@ export default class principal extends Phaser.Scene {
       .on("pointerup", () => {
         this.botao_a.setFrame(8)
       });
+    
     /* Colisões por tile */
-    //this.terreno.setCollisionByProperty({ collides: true });
-    //this.ARCas.setCollisionByProperty({ collides: true });
+    //this.parede.setCollisionByProperty({ collides: true });
+    //this.mochila.setCollisionByProperty({ collides: true });
 
     /* Colisão entre personagem 1 e mapa (por layer) */
-    //this.physics.add.collider(this.jogador_1, this.terreno, null, null, this);
-    //this.physics.add.collider(this.jogador_1, this.ARCas, null, null, this);
+    //this.physics.add.collider(this.jogador_1, this.parede, null, null, this);
+    //this.physics.add.collider(this.jogador_1, this.mochila, null, null, this);
   }
 
   update() {}
