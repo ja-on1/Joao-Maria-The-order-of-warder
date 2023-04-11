@@ -50,17 +50,10 @@ export default class principal extends Phaser.Scene {
     this.tileset_principal_mochila =
       this.mapa_principal.addTilesetImage("mochila", "parede");
 
-  //Layer 0: chão
+  /* Layer 0: chão */
     this.chao = this.mapa_principal.createLayer(
       "chao",
       this.tileset_principal_chao,
-      0,
-      0
-    );
-    //Layer 1: parede
-    this.parede = this.mapa_principal.createLayer(
-      "parede",
-      this.tileset_principal_parede,
       0,
       0
     );
@@ -124,6 +117,14 @@ export default class principal extends Phaser.Scene {
 
     /* Jogador 2 */
     this.jogador_2 = this.add.sprite(400, 225, "Maria");
+    
+    /* Layer 1: parede */
+    this.parede = this.mapa_principal.createLayer(
+      "parede",
+      this.tileset_principal_parede,
+      0,
+      0
+    );
 
     /* Botões */
     this.botao_cima = this.add
@@ -194,13 +195,34 @@ export default class principal extends Phaser.Scene {
       });
     
     /* Colisões por tile */
-    //this.parede.setCollisionByProperty({ collides: true });
-    //this.mochila.setCollisionByProperty({ collides: true });
+    this.parede.setCollisionByProperty({ collides: true });
+    this.mochila.setCollisionByProperty({ collides: true });
 
     /* Colisão entre personagem 1 e mapa (por layer) */
-    //this.physics.add.collider(this.jogador_1, this.parede, null, null, this);
-    //this.physics.add.collider(this.jogador_1, this.mochila, null, null, this);
+    this.physics.add.collider(
+      this.jogador_1,
+      this.parede,
+      this.collision,
+      null,
+      this
+    );
+    
+    this.physics.add.collider(
+      this.jogador_1,
+      this.mochila,
+      this.collision,
+      null,
+      this
+    );
   }
 
-  update() {}
+  update() { }
+  
+  collision() {
+    /* Tremer a tela por 100 ms com baixa intensidade (0,01) */
+    this.cameras.main.shake(100, 0.01);
+
+    /* Vibrar o celular pelos mesmos 100 ms */
+    window.navigator.vibrate([100]);
+  }
 }
