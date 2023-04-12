@@ -196,7 +196,6 @@ export default class principal extends Phaser.Scene {
     
     /* Colisões por tile */
     this.parede.setCollisionByProperty({ collides: true });
-    this.mochila.setCollisionByProperty({ collides: true });
 
     /* Colisão entre personagem 1 e mapa (por layer) */
     this.physics.add.collider(
@@ -206,14 +205,7 @@ export default class principal extends Phaser.Scene {
       null,
       this
     );
-    
-    this.physics.add.collider(
-      this.jogador_1,
-      this.mochila,
-      this.collision,
-      null,
-      this
-    );
+
   }
 
   update() { }
