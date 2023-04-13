@@ -8,13 +8,14 @@ export default class principal extends Phaser.Scene {
     /* Tilemap */
     this.load.tilemapTiledJSON(
       "mapa-principal",
-      "./assets/chao.json"
+      "./assets/mapa.json"
     );
 
     /* Tilesets */
-    this.load.image("chao", "./assets/tileset.png");
-    this.load.image("casa", "./assets/casa.png");
-    this.load.image("mochila", "./assets/Mochila.png");
+    this.load.image("chao", "./assets/mapa/chao.png");
+    this.load.image("casa", "./assets/mapa/casa.png");
+    this.load.image("arvores", "./assets/mapa/arvores.png");
+    this.load.image("muro", "./assets/mapa/muro.png");
     
     /* Personagem 1 */
     this.load.spritesheet("João", "./assets/players/joao.png", {
@@ -44,16 +45,18 @@ export default class principal extends Phaser.Scene {
 
     /* tilesets */
     this.tileset_principal_chao =
-      this.mapa_principal.addTilesetImage("chao", "chao");
+      this.mapa_principal.addTilesetImage("chao", "terreno");
     this.tileset_principal_casa =
-      this.mapa_principal.addTilesetImage("casa", "parede");
-    this.tileset_principal_mochila =
-      this.mapa_principal.addTilesetImage("mochila", "parede");
+      this.mapa_principal.addTilesetImage("casa", "muros");
+    this.tileset_principal_arvores =
+      this.mapa_principal.addTilesetImage("arvores", "muros");
+    this.tileset_principal_muros =
+      this.mapa_principal.addTilesetImage("muros", "muros")
 
   /* Layer 0: chão */
-    this.chao = this.mapa_principal.createLayer(
-      "chao",
-      this.tileset_principal_chao,
+    this.terreno = this.mapa_principal.createLayer(
+      "terreno",
+      this.tileset_principal_terreno,
       0,
       0
     );
@@ -120,8 +123,8 @@ export default class principal extends Phaser.Scene {
     
     /* Layer 1: parede */
     this.parede = this.mapa_principal.createLayer(
-      "parede",
-      this.tileset_principal_parede,
+      "muros",
+      this.tileset_principal_muros,
       0,
       0
     );
@@ -195,16 +198,34 @@ export default class principal extends Phaser.Scene {
       });
     
     /* Colisões por tile */
-    this.parede.setCollisionByProperty({ collides: true });
+    //this.muros.setCollisionByProperty({ collides: true });
+    //this.casa.setCollisionByProperty({ collides: true });
+    //this.arvores.setCollisionByProperty({ collides: true });
 
     /* Colisão entre personagem 1 e mapa (por layer) */
     this.physics.add.collider(
       this.jogador_1,
-      this.parede,
+      this.terreno,
       this.collision,
       null,
       this
     );
+
+    this.physics.add.collider(
+      this.jogador_1,
+      this.muros,
+      this.collision,
+      null,
+      this
+    );
+
+    /* Colisão com os limites da cena */
+    this.jogador_1.setCollideWorldBounds(true);
+
+    /* Cena (960) maior que a tela (800x450) (Ver com Boi sobre o que se trata exatamente*/
+    this.cameras.main.setBounds(0, 0, 960, 960);
+    this.physics.world.setBounds(0, 0, 960, 960);
+    this.cameras.main.startFollow(this.jogador_1);
 
   }
 
