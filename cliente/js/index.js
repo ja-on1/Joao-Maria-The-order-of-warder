@@ -13,11 +13,11 @@ class Game extends Phaser.Game{
     //
     // Carregar as cenas
     this.scene.add("abertura", CenaDeAbertura);
-    this.scene.add("Principal", CenaPrincipal);
+    this.scene.add("principal", CenaPrincipal);
     this.scene.add("Encerramento", CenaDeencerramento);
     //
     // Iniciar pela cena de abertura
-    this.scene.start("abertura");
+    this.scene.start("principal");
   }
 }
 

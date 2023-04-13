@@ -6,34 +6,31 @@ export default class principal extends Phaser.Scene {
   preload() {
     // Mapa
     /* Tilemap */
-    this.load.tilemapTiledJSON(
-      "mapa-principal",
-      "./assets/mapa.json"
-    );
+    this.load.tilemapTiledJSON("mapa-principal", "./assets/mapa.json");
 
     /* Tilesets */
-    this.load.image("chao", "./assets/mapa/chao.png");
-    this.load.image("casa", "./assets/mapa/casa.png");
-    this.load.image("arvores", "./assets/mapa/arvores.png");
-    this.load.image("muro", "./assets/mapa/muro.png");
-    
+    this.load.image("chao", "./assets/chao.png");
+    this.load.image("casa", "./assets/casa.png");
+    this.load.image("arvores", "./assets/arvores.png");
+    this.load.image("muros", "./assets/muros.png");
+
     /* Personagem 1 */
     this.load.spritesheet("João", "./assets/players/joao.png", {
       frameWidth: 32,
       frameHeight: 50,
     });
-    
+
     /* Personagem 2 */
     this.load.spritesheet("Maria", "./assets/players/maria.png", {
       frameWidth: 32,
       frameHeight: 50,
     });
-    
-    / *Botões */
+
+    / *Botões */;
     this.load.spritesheet("botao", "./assets/botões/botao.png", {
       frameWidth: 64,
       frameHeight: 64,
-    })
+    });
   }
 
   create() {
@@ -44,24 +41,32 @@ export default class principal extends Phaser.Scene {
     });
 
     /* tilesets */
-    this.tileset_principal_chao =
-      this.mapa_principal.addTilesetImage("chao", "terreno");
-    this.tileset_principal_casa =
-      this.mapa_principal.addTilesetImage("casa", "muros");
-    this.tileset_principal_arvores =
-      this.mapa_principal.addTilesetImage("arvores", "muros");
-    this.tileset_principal_muros =
-      this.mapa_principal.addTilesetImage("muros", "muros")
+    this.tileset_principal_chao = this.mapa_principal.addTilesetImage(
+      "chao",
+      "chao"
+    );
+    this.tileset_principal_casa = this.mapa_principal.addTilesetImage(
+      "casa",
+      "casa"
+    );
+    this.tileset_principal_arvores = this.mapa_principal.addTilesetImage(
+      "arvores",
+      "arvores"
+    );
+    this.tileset_principal_muros = this.mapa_principal.addTilesetImage(
+      "muros",
+      "muros"
+    );
 
-  /* Layer 0: chão */
+    /* Layer 0: chão */
     this.terreno = this.mapa_principal.createLayer(
       "terreno",
-      this.tileset_principal_terreno,
+      this.tileset_principal_chao,
       0,
       0
     );
 
-      /* jogador 1 */
+    /* jogador 1 */
     this.jogador_1 = this.physics.add.sprite(200, 225, "João");
 
     this.anims.create({
@@ -120,11 +125,15 @@ export default class principal extends Phaser.Scene {
 
     /* Jogador 2 */
     this.jogador_2 = this.add.sprite(400, 225, "Maria");
-    
+
     /* Layer 1: parede */
-    this.parede = this.mapa_principal.createLayer(
+    this.muros = this.mapa_principal.createLayer(
       "muros",
-      this.tileset_principal_muros,
+      [
+        this.tileset_principal_muros,
+        this.tileset_principal_arvores,
+        this.tileset_principal_casa,
+      ],
       0,
       0
     );
@@ -135,71 +144,85 @@ export default class principal extends Phaser.Scene {
       .setInteractive()
       .on("pointerdown", () => {
         this.botao_cima.setFrame(1);
-        this.jogador_1.setVelocityY(-50);
-        this.jogador_1.anims.play("jogador-1-cima")
+        this.jogador_1.setVelocityY(-200);
+        this.jogador_1.anims.play("jogador-1-cima");
       })
       .on("pointerup", () => {
-        this.botao_cima.setFrame(0)
+        this.botao_cima.setFrame(0);
         this.jogador_1.setVelocityY(0);
-      });
+        this.jogador_1.anims.play("jogador-1-parado");
+      })
+      .setScrollFactor(0);
+    
     this.botao_baixo = this.add
       .sprite(100, 415, "botao", 2)
       .setInteractive()
       .on("pointerdown", () => {
-        this.botao_baixo.setFrame(3)
-        this.jogador_1.setVelocityY(50);
-        this.jogador_1.anims.play("jogador-1-baixo")
+        this.botao_baixo.setFrame(3);
+        this.jogador_1.setVelocityY(200);
+        this.jogador_1.anims.play("jogador-1-baixo");
       })
       .on("pointerup", () => {
-        this.botao_baixo.setFrame(2)
+        this.botao_baixo.setFrame(2);
         this.jogador_1.setVelocityY(0);
-      });
+        this.jogador_1.anims.play("jogador-1-parado");
+      }).setScrollFactor(0);
+    
     this.botao_esquerda = this.add
       .sprite(50, 370, "botao", 4)
       .setInteractive()
       .on("pointerdown", () => {
-        this.botao_esquerda.setFrame(5)
-        this.jogador_1.setVelocityX(-50);
-        this.jogador_1.anims.play("jogador-1-esquerda")
+        this.botao_esquerda.setFrame(5);
+        this.jogador_1.setVelocityX(-200);
+        this.jogador_1.anims.play("jogador-1-esquerda");
       })
       .on("pointerup", () => {
-        this.botao_esquerda.setFrame(4)
+        this.botao_esquerda.setFrame(4);
         this.jogador_1.setVelocityX(0);
-      });
+        this.jogador_1.anims.play("jogador-1-parado");
+      })
+      .setScrollFactor(0);
+    
     this.botao_direita = this.add
       .sprite(150, 370, "botao", 6)
       .setInteractive()
       .on("pointerdown", () => {
-        this.botao_direita.setFrame(7)
-        this.jogador_1.setVelocityX(50);
-        this.jogador_1.anims.play("jogador-1-direita")
+        this.botao_direita.setFrame(7);
+        this.jogador_1.setVelocityX(200);
+        this.jogador_1.anims.play("jogador-1-direita");
       })
       .on("pointerup", () => {
-        this.botao_direita.setFrame(6)
+        this.botao_direita.setFrame(6);
         this.jogador_1.setVelocityX(0);
-      });
+        this.jogador_1.anims.play("jogador-1-parado");
+      })
+      .setScrollFactor(0);
+    
     this.botao_menu = this.add
       .sprite(400, 400, "botao", 12)
       .setInteractive()
       .on("pointerdown", () => {
-        this.botao_menu.setFrame(13)
+        this.botao_menu.setFrame(13);
       })
       .on("pointerup", () => {
-        this.botao_menu.setFrame(12)
-      });
+        this.botao_menu.setFrame(12);
+      })
+      .setScrollFactor(0);
+    
     this.botao_a = this.add
       .sprite(750, 400, "botao", 8)
       .setInteractive()
       .on("pointerdown", () => {
-        this.botao_a.setFrame(9)
+        this.botao_a.setFrame(9);
       })
       .on("pointerup", () => {
-        this.botao_a.setFrame(8)
-      });
-    
+        this.botao_a.setFrame(8);
+      })
+      .setScrollFactor(0);
+
     /* Colisões por tile */
-    //this.muros.setCollisionByProperty({ collides: true });
-    //this.casa.setCollisionByProperty({ collides: true });
+    this.muros.setCollisionByProperty({ collides: true });
+    this.terreno.setCollisionByProperty({ collides: true });
     //this.arvores.setCollisionByProperty({ collides: true });
 
     /* Colisão entre personagem 1 e mapa (por layer) */
@@ -223,14 +246,13 @@ export default class principal extends Phaser.Scene {
     this.jogador_1.setCollideWorldBounds(true);
 
     /* Cena (960) maior que a tela (800x450) (Ver com Boi sobre o que se trata exatamente*/
-    this.cameras.main.setBounds(0, 0, 960, 960);
-    this.physics.world.setBounds(0, 0, 960, 960);
+    this.cameras.main.setBounds(0, 0, 2560, 3200); /*40*64, 50*64*/
+    this.physics.world.setBounds(0, 0, 2560, 3200);
     this.cameras.main.startFollow(this.jogador_1);
-
   }
 
-  update() { }
-  
+  update() {}
+
   collision() {
     /* Tremer a tela por 100 ms com baixa intensidade (0,01) */
     this.cameras.main.shake(100, 0.01);
