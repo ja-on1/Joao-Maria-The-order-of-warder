@@ -223,7 +223,6 @@ export default class principal extends Phaser.Scene {
     /* Colisões por tile */
     this.muros.setCollisionByProperty({ collides: true });
     this.terreno.setCollisionByProperty({ collides: true });
-    //this.arvores.setCollisionByProperty({ collides: true });
 
     /* Colisão entre personagem 1 e mapa (por layer) */
     this.physics.add.collider(
