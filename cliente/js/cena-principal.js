@@ -245,7 +245,7 @@ export default class principal extends Phaser.Scene {
     this.jogador_1.setCollideWorldBounds(true);
 
     /* Cena (960) maior que a tela (800x450) (Ver com Boi sobre o que se trata exatamente*/
-    this.cameras.main.setBounds(0, 0, 3200, 2560); /*40*64, 50*64*/
+    this.cameras.main.setBounds(0, 0, 3200, 2560); /*50*64, 40*64*/
     this.physics.world.setBounds(0, 0, 3200, 2560);
     this.cameras.main.startFollow(this.jogador_1);
   }
