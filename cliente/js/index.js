@@ -11,15 +11,15 @@ import CenaDeperda from "./cena-perda.js";
 // Cena casa
 import CenaDecasa from "./cena-casa.js";
 // Cena quarto 1
-import CenadeQuarto1 from "./cena-quarto-1"
+import CenadeQuarto1 from "./cena-quarto-1.js"
 // Cena quarto 2
-import CenadeQuarto2 from "./cena-quarto-2"
+import CenadeQuarto2 from "./cena-quarto-2.js"
 // Cena quarto 3
-import CenadeQuarto3 from "./cena-quarto-3"
+import CenadeQuarto3 from "./cena-quarto-3.js"
 // Cena quarto 4
-import CenadeQuarto4 from "./cena-quarto-4"
+import CenadeQuarto4 from "./cena-quarto-4.js"
 // Cena Laboratorio
-import CenadeLaboratorio from "./cena-laboratorio"
+import CenadeLaboratorio from "./cena-laboratorio.js"
 
 class Game extends Phaser.Game{
   constructor() {
