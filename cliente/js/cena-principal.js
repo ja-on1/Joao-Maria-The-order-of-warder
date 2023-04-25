@@ -6,7 +6,10 @@ export default class principal extends Phaser.Scene {
   preload() {
     // Mapa
     /* Tilemap */
-    this.load.tilemapTiledJSON("mapa-principal", "./assets/mapa.json");
+    this.load.tilemapTiledJSON(
+      "mapa-principal",
+      "./assets/mapa.json"
+    );
 
     /* Tilesets */
     this.load.image("chao", "./assets/chao.png");
@@ -37,10 +40,17 @@ export default class principal extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 64,
     });
+
+    /* Sons */
+    this.load.audio();
+
   }
 
   create() {
-    //Mapa
+    /* Trilha Sonora */
+    this.trilha = this.sound.add();
+    this.trilha.play();
+    
     /* Tilemap */
     this.mapa_principal = this.make.tilemap({
       key: "mapa-principal",
@@ -227,6 +237,20 @@ export default class principal extends Phaser.Scene {
         this.botao_a.setFrame(8);
       })
       .setScrollFactor(0);
+    
+    this.tela_cheia = this.add
+      .sprite(750, 50, "tela-cheia", 0)
+      .setInteractive()
+      .on("pointerdown", () => {
+        if (this.scale.isFullscreen) {
+          this.tela_cheia.setFrame(0);
+          this.scale.stopFullscreen();
+        } else {
+          this.tela_cheia.setFrame(1);
+          this.scale.startFullscreen();
+        }
+      })
+      .setScrollFactor(0);
 
     /* Colisões por tile */
     this.muros.setCollisionByProperty({ collides: true });
@@ -265,6 +289,10 @@ export default class principal extends Phaser.Scene {
       null,
       this
     );
+
+    /* Efeitos sonoros */
+    this.metal_som = this.sound.add("metal-som");
+    this.cristal_som = this.sound.add("cristal-som");
   }
 
   update() {}
@@ -274,9 +302,18 @@ export default class principal extends Phaser.Scene {
     this.cameras.main.shake(100, 0.01);
 
     /* Vibrar o celular pelos mesmos 100 ms */
-    window.navigator.vibrate([100]);
+    if (window.navigator.vibrate) {
+      window.navigator.vibrate([100]);
   }
+
+  /* Tocar efeito sonoro */
+    this.metal_som.play();
+}
+
     coletar_Mochila() {
       this.Mochila.disableBody(true, true);
-    }
+    
+/* Tocar efeito sonoro */
+    this.cristal_som.play();
+  }
 }
