@@ -42,13 +42,13 @@ export default class principal extends Phaser.Scene {
     });
 
     /* Sons */
-    this.load.audio();
-
+    this.load.audio("metal-som", "./assets.metal.mp3");
+    this.load.audio("trilha", "./assets.trilha.mp3");
   }
 
   create() {
     /* Trilha Sonora */
-    this.trilha = this.sound.add();
+    this.trilha = this.sound.add("trilha");
     this.trilha.play();
     
     /* Tilemap */
@@ -160,12 +160,12 @@ export default class principal extends Phaser.Scene {
     this.botao_cima = this.add
       .sprite(100, 325, "botao", 0)
       .setInteractive()
-      .on("pointerdown", () => {
+      .on("pointerover", () => {
         this.botao_cima.setFrame(1);
         this.jogador_1.setVelocityY(-200);
         this.jogador_1.anims.play("jogador-1-cima");
       })
-      .on("pointerup", () => {
+      .on("pointerout", () => {
         this.botao_cima.setFrame(0);
         this.jogador_1.setVelocityY(0);
         this.jogador_1.anims.play("jogador-1-parado");
@@ -175,12 +175,12 @@ export default class principal extends Phaser.Scene {
     this.botao_baixo = this.add
       .sprite(100, 415, "botao", 2)
       .setInteractive()
-      .on("pointerdown", () => {
+      .on("pointerover", () => {
         this.botao_baixo.setFrame(3);
         this.jogador_1.setVelocityY(200);
         this.jogador_1.anims.play("jogador-1-baixo");
       })
-      .on("pointerup", () => {
+      .on("pointerout", () => {
         this.botao_baixo.setFrame(2);
         this.jogador_1.setVelocityY(0);
         this.jogador_1.anims.play("jogador-1-parado");
@@ -189,12 +189,12 @@ export default class principal extends Phaser.Scene {
     this.botao_esquerda = this.add
       .sprite(50, 370, "botao", 4)
       .setInteractive()
-      .on("pointerdown", () => {
+      .on("pointerover", () => {
         this.botao_esquerda.setFrame(5);
         this.jogador_1.setVelocityX(-200);
         this.jogador_1.anims.play("jogador-1-esquerda");
       })
-      .on("pointerup", () => {
+      .on("pointerout", () => {
         this.botao_esquerda.setFrame(4);
         this.jogador_1.setVelocityX(0);
         this.jogador_1.anims.play("jogador-1-parado");
@@ -204,12 +204,12 @@ export default class principal extends Phaser.Scene {
     this.botao_direita = this.add
       .sprite(150, 370, "botao", 6)
       .setInteractive()
-      .on("pointerdown", () => {
+      .on("pointerover", () => {
         this.botao_direita.setFrame(7);
         this.jogador_1.setVelocityX(200);
         this.jogador_1.anims.play("jogador-1-direita");
       })
-      .on("pointerup", () => {
+      .on("pointerout", () => {
         this.botao_direita.setFrame(6);
         this.jogador_1.setVelocityX(0);
         this.jogador_1.anims.play("jogador-1-parado");
@@ -219,10 +219,10 @@ export default class principal extends Phaser.Scene {
     this.botao_menu = this.add
       .sprite(400, 400, "botao", 12)
       .setInteractive()
-      .on("pointerdown", () => {
+      .on("pointerover", () => {
         this.botao_menu.setFrame(13);
       })
-      .on("pointerup", () => {
+      .on("pointerout", () => {
         this.botao_menu.setFrame(12);
       })
       .setScrollFactor(0);
@@ -230,10 +230,10 @@ export default class principal extends Phaser.Scene {
     this.botao_a = this.add
       .sprite(750, 400, "botao", 8)
       .setInteractive()
-      .on("pointerdown", () => {
+      .on("pointerover", () => {
         this.botao_a.setFrame(9);
       })
-      .on("pointerup", () => {
+      .on("pointerout", () => {
         this.botao_a.setFrame(8);
       })
       .setScrollFactor(0);
@@ -241,7 +241,7 @@ export default class principal extends Phaser.Scene {
     this.tela_cheia = this.add
       .sprite(750, 50, "tela-cheia", 0)
       .setInteractive()
-      .on("pointerdown", () => {
+      .on("pointerover", () => {
         if (this.scale.isFullscreen) {
           this.tela_cheia.setFrame(0);
           this.scale.stopFullscreen();
@@ -292,7 +292,6 @@ export default class principal extends Phaser.Scene {
 
     /* Efeitos sonoros */
     this.metal_som = this.sound.add("metal-som");
-    this.cristal_som = this.sound.add("cristal-som");
   }
 
   update() {}
@@ -310,10 +309,7 @@ export default class principal extends Phaser.Scene {
     this.metal_som.play();
 }
 
-    coletar_Mochila() {
-      this.Mochila.disableBody(true, true);
-    
-/* Tocar efeito sonoro */
-    this.cristal_som.play();
+  coletar_Mochila() {
+    this.Mochila.disableBody(true, true);
   }
 }
