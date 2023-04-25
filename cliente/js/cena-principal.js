@@ -35,7 +35,7 @@ export default class principal extends Phaser.Scene {
       frameHeight: 32,
     });
 
-    / *Botões */;
+    /*Botões */;
     this.load.spritesheet("botao", "./assets/botões/botao.png", {
       frameWidth: 64,
       frameHeight: 64,

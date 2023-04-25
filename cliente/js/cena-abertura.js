@@ -8,6 +8,7 @@ export default class abertura extends Phaser.Scene {
   }
 
   create() {
+    /* imagem de fundo */
     this.imagem = this.add
       .image(400, 225, "logo")
       .setInteractive()
