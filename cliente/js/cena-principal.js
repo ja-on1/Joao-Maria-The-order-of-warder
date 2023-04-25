@@ -40,10 +40,15 @@ export default class principal extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 64,
     });
+    
+    this.load.spritesheet("tela-cheia", "./assets/botões/tela-cheia.png", {
+      frameWidth: 64,
+      frameHeight: 64,
+    });
 
     /* Sons */
-    this.load.audio("metal-som", "./assets.metal.mp3");
-    this.load.audio("trilha", "./assets.trilha.mp3");
+    this.load.audio("metal-som", "./assets/metal.mp3");
+    this.load.audio("trilha", "./assets/trilha.mp3");
   }
 
   create() {
@@ -241,7 +246,7 @@ export default class principal extends Phaser.Scene {
     this.tela_cheia = this.add
       .sprite(750, 50, "tela-cheia", 0)
       .setInteractive()
-      .on("pointerover", () => {
+      .on("pointerdown", () => {
         if (this.scale.isFullscreen) {
           this.tela_cheia.setFrame(0);
           this.scale.stopFullscreen();
@@ -251,6 +256,7 @@ export default class principal extends Phaser.Scene {
         }
       })
       .setScrollFactor(0);
+
 
     /* Colisões por tile */
     this.muros.setCollisionByProperty({ collides: true });

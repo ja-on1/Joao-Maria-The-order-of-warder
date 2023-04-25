@@ -39,7 +39,7 @@ class Game extends Phaser.Game{
 
     //
     // Iniciar pela cena de abertura
-    this.scene.start("principal");
+    this.scene.start("abertura");
   }
 }
 
