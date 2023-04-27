@@ -18,7 +18,7 @@ export default class abertura extends Phaser.Scene {
         this.game.scene.start("principal");
       });
     /* Texto em destaque */
-    this.texto = this.add.text(300, 300, "Start", {
+    this.texto = this.add.text(370, 300, "Start", {
       fill: "#FFFFFF",
     });
   }
