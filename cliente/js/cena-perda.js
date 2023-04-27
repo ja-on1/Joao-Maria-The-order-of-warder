@@ -4,12 +4,12 @@ export default class final_feliz extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("logo", "./assets/logo.png");
+    this.load.image("perdeu", "./assets/perdeu.png");
   }
 
   create() {
     this.imagem = this.add
-      .image(400, 225, "logo")
+      .image(400, 225, "perdeu")
       .setTint(0xffff00)
       .setInteractive()
       .on("pointerdown", () => {

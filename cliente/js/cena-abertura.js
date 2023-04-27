@@ -4,23 +4,19 @@ export default class abertura extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("logo", "./assets/logo.png");
+    this.load.image("abertura", "./assets/abertura.png");
   }
 
   create() {
     /* imagem de fundo */
     this.imagem = this.add
-      .image(400, 225, "logo")
+      .image(400, 225, "abertura")
       .setInteractive()
       .on("pointerdown", () => {
         this.imagem.destroy();
         this.texto.destroy();
         this.game.scene.start("principal");
       });
-
-    this.texto = this.add.text(490, 50, "Clique na logo para iniciar...", {
-      fill: "#000000",
-    });
   }
 
   upload() {}
