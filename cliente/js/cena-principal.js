@@ -6,10 +6,7 @@ export default class principal extends Phaser.Scene {
   preload() {
     // Mapa
     /* Tilemap */
-    this.load.tilemapTiledJSON(
-      "mapa-principal",
-      "./assets/mapa.json"
-    );
+    this.load.tilemapTiledJSON("mapa-principal", "./assets/mapa.json");
 
     /* Tilesets */
     this.load.image("chao", "./assets/chao.png");
@@ -28,19 +25,18 @@ export default class principal extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 50,
     });
-    
+
     /* Artefato */
     this.load.spritesheet("Mochila", "./assets/Mochila.png", {
       frameWidth: 32,
       frameHeight: 32,
     });
 
-    /*Botões */;
-    this.load.spritesheet("botao", "./assets/botões/botao.png", {
+    /*Botões */ this.load.spritesheet("botao", "./assets/botões/botao.png", {
       frameWidth: 64,
       frameHeight: 64,
     });
-    
+
     this.load.spritesheet("tela-cheia", "./assets/botões/tela-cheia.png", {
       frameWidth: 64,
       frameHeight: 64,
@@ -55,7 +51,7 @@ export default class principal extends Phaser.Scene {
     /* Trilha Sonora */
     this.trilha = this.sound.add("trilha");
     this.trilha.play();
-    
+
     /* Tilemap */
     this.mapa_principal = this.make.tilemap({
       key: "mapa-principal",
@@ -89,9 +85,10 @@ export default class principal extends Phaser.Scene {
 
     /* jogador 1 */
     this.jogador_1 = this.physics.add.sprite(200, 225, "João");
+    this.jogador_1_com_mochila = false;
 
     this.anims.create({
-      key: "jogador-1-baixo",
+      key: "jogador-1-baixo-sem-mochila",
       frames: this.anims.generateFrameNumbers("João", {
         start: 0,
         end: 3,
@@ -99,10 +96,9 @@ export default class principal extends Phaser.Scene {
       frameRate: 7,
       repeat: -1,
     });
-    this.jogador_1.anims.play("jogador-1-baixo", true);
     //
     this.anims.create({
-      key: "jogador-1-cima",
+      key: "jogador-1-cima-sem-mochila",
       frames: this.anims.generateFrameNumbers("João", {
         start: 4,
         end: 7,
@@ -110,10 +106,9 @@ export default class principal extends Phaser.Scene {
       frameRate: 7,
       repeat: -1,
     });
-    this.jogador_1.anims.play("jogador-1-cima", true);
     //
     this.anims.create({
-      key: "jogador-1-esquerda",
+      key: "jogador-1-esquerda-sem-mochila",
       frames: this.anims.generateFrameNumbers("João", {
         start: 8,
         end: 11,
@@ -121,10 +116,9 @@ export default class principal extends Phaser.Scene {
       frameRate: 7,
       repeat: -1,
     });
-    this.jogador_1.anims.play("jogador-1-esquerda", true);
     //
     this.anims.create({
-      key: "jogador-1-direita",
+      key: "jogador-1-direita-sem-mochila",
       frames: this.anims.generateFrameNumbers("João", {
         start: 12,
         end: 15,
@@ -132,21 +126,69 @@ export default class principal extends Phaser.Scene {
       frameRate: 7,
       repeat: -1,
     });
-    this.jogador_1.anims.play("jogador-1-direita", true);
     //
     this.anims.create({
-      key: "jogador-1-parado",
+      key: "jogador-1-parado-sem-mochila",
       frames: this.anims.generateFrameNumbers("João", {
         start: 0,
         end: 0,
       }),
       frameRate: 1,
     });
-    this.jogador_1.anims.play("jogador-1-parado", true);
+    //
+    this.anims.create({
+      key: "jogador-1-baixo-com-mochila",
+      frames: this.anims.generateFrameNumbers("João", {
+        start: 16,
+        end: 19,
+      }),
+      frameRate: 7,
+      repeat: -1
+    });
+    //
+    this.anims.create({
+      key: "jogador-1-cima-com-mochila",
+      frames: this.anims.generateFrameNumbers("João", {
+        start: 20,
+        end: 23,
+      }),
+      frameRate: 7,
+      repeat: -1
+    });
+    //
+    this.anims.create({
+      key: "jogador-1-esquerda-com-mochila",
+      frames: this.anims.generateFrameNumbers("João", {
+        start: 24,
+        end: 27,
+      }),
+      frameRate: 7,
+      repeat: -1
+    });
+    //
+    this.anims.create({
+      key: "jogador-1-direita-com-mochila",
+      frames: this.anims.generateFrameNumbers("João", {
+        start: 28,
+        end: 31,
+      }),
+      frameRate: 7,
+      repeat: -1
+    });
+    //
+    this.anims.create({
+      key: "jogador-1-parado-com-mochila",
+      frames: this.anims.generateFrameNumbers("João", {
+        start: 16,
+        end: 16,
+      }),
+      frameRate: 7,
+      repeat: -1
+    });
 
     /* Jogador 2 */
     this.jogador_2 = this.add.sprite(400, 225, "Maria");
-    
+
     this.Mochila = this.physics.add.sprite(550, 300, "Mochila");
 
     /* Layer 1: parede */
@@ -168,59 +210,92 @@ export default class principal extends Phaser.Scene {
       .on("pointerover", () => {
         this.botao_cima.setFrame(1);
         this.jogador_1.setVelocityY(-200);
-        this.jogador_1.anims.play("jogador-1-cima");
+        if (this.jogador_1_com_mochila) {
+          this.jogador_1.anims.play("jogador-1-cima-com-mochila");
+        } else {
+          this.jogador_1.anims.play("jogador-1-cima-sem-mochila");
+        }
       })
       .on("pointerout", () => {
         this.botao_cima.setFrame(0);
         this.jogador_1.setVelocityY(0);
-        this.jogador_1.anims.play("jogador-1-parado");
+        if (this.jogador_1_com_mochila) {
+          this.jogador_1.anims.play("jogador-1-parado-com-mochila");
+        } else {
+          this.jogador_1.anims.play("jogador-1-parado-sem-mochila");
+        }
       })
       .setScrollFactor(0);
-    
+
     this.botao_baixo = this.add
       .sprite(100, 415, "botao", 2)
       .setInteractive()
       .on("pointerover", () => {
         this.botao_baixo.setFrame(3);
         this.jogador_1.setVelocityY(200);
-        this.jogador_1.anims.play("jogador-1-baixo");
+        if (this.jogador_1_com_mochila) {
+          this.jogador_1.anims.play("jogador-1-baixo-com-mochila");
+        } else {
+          this.jogador_1.anims.play("jogador-1-baixo-sem-mochila");
+        }
       })
       .on("pointerout", () => {
         this.botao_baixo.setFrame(2);
         this.jogador_1.setVelocityY(0);
-        this.jogador_1.anims.play("jogador-1-parado");
-      }).setScrollFactor(0);
-    
+        if (this.jogador_1_com_mochila) {
+          this.jogador_1.anims.play("jogador-1-parado-com-mochila");
+        } else {
+          this.jogador_1.anims.play("jogador-1-parado-sem-mochila");
+        }
+      })
+      .setScrollFactor(0);
+
     this.botao_esquerda = this.add
       .sprite(50, 370, "botao", 4)
       .setInteractive()
       .on("pointerover", () => {
         this.botao_esquerda.setFrame(5);
         this.jogador_1.setVelocityX(-200);
-        this.jogador_1.anims.play("jogador-1-esquerda");
+        if (this.jogador_1_com_mochila) {
+          this.jogador_1.anims.play("jogador-1-esquerda-com-mochila");
+        } else {
+          this.jogador_1.anims.play("jogador-1-esquerda-sem-mochila");
+        }
       })
       .on("pointerout", () => {
         this.botao_esquerda.setFrame(4);
         this.jogador_1.setVelocityX(0);
-        this.jogador_1.anims.play("jogador-1-parado");
+        if (this.jogador_1_com_mochila) {
+          this.jogador_1.anims.play("jogador-1-parado-com-mochila");
+        } else {
+          this.jogador_1.anims.play("jogador-1-parado-sem-mochila");
+        }
       })
       .setScrollFactor(0);
-    
+
     this.botao_direita = this.add
       .sprite(150, 370, "botao", 6)
       .setInteractive()
       .on("pointerover", () => {
         this.botao_direita.setFrame(7);
         this.jogador_1.setVelocityX(200);
-        this.jogador_1.anims.play("jogador-1-direita");
+        if (this.jogador_1_com_mochila) {
+          this.jogador_1.anims.play("jogador-1-direita-com-mochila");
+        } else {
+          this.jogador_1.anims.play("jogador-1-direita-sem-mochila");
+        }
       })
       .on("pointerout", () => {
         this.botao_direita.setFrame(6);
         this.jogador_1.setVelocityX(0);
-        this.jogador_1.anims.play("jogador-1-parado");
+        if (this.jogador_1_com_mochila) {
+          this.jogador_1.anims.play("jogador-1-parado-com-mochila");
+        } else {
+          this.jogador_1.anims.play("jogador-1-parado-sem-mochila");
+        }
       })
       .setScrollFactor(0);
-    
+
     this.botao_menu = this.add
       .sprite(400, 400, "botao", 12)
       .setInteractive()
@@ -231,7 +306,7 @@ export default class principal extends Phaser.Scene {
         this.botao_menu.setFrame(12);
       })
       .setScrollFactor(0);
-    
+
     this.botao_a = this.add
       .sprite(750, 400, "botao", 8)
       .setInteractive()
@@ -242,7 +317,7 @@ export default class principal extends Phaser.Scene {
         this.botao_a.setFrame(8);
       })
       .setScrollFactor(0);
-    
+
     this.tela_cheia = this.add
       .sprite(750, 50, "tela-cheia", 0)
       .setInteractive()
@@ -256,7 +331,6 @@ export default class principal extends Phaser.Scene {
         }
       })
       .setScrollFactor(0);
-
 
     /* Colisões por tile */
     this.muros.setCollisionByProperty({ collides: true });
@@ -309,13 +383,14 @@ export default class principal extends Phaser.Scene {
     /* Vibrar o celular pelos mesmos 100 ms */
     if (window.navigator.vibrate) {
       window.navigator.vibrate([100]);
+    }
+
+    /* Tocar efeito sonoro */
+    this.metal_som.play();
   }
 
-  /* Tocar efeito sonoro */
-    this.metal_som.play();
-}
-
   coletar_Mochila() {
+    this.jogador_1_com_mochila = true;
     this.Mochila.disableBody(true, true);
   }
 }
