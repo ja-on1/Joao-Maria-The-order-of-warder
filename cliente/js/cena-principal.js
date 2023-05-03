@@ -32,6 +32,12 @@ export default class principal extends Phaser.Scene {
       frameHeight: 32,
     });
 
+    /* Portão */
+    this.load.spritesheet("portao", "./assets/portao.png", {
+      frameWidth: 100,
+      frameHeight: 80,
+    });
+
     /*Botões */ this.load.spritesheet("botao", "./assets/botões/botao.png", {
       frameWidth: 64,
       frameHeight: 64,
@@ -45,6 +51,7 @@ export default class principal extends Phaser.Scene {
     /* Sons */
     this.load.audio("metal-som", "./assets/metal.mp3");
     this.load.audio("trilha", "./assets/trilha.mp3");
+    this.load.audio("colisao-som", "./assets/colisao.mp3");
   }
 
   create() {
@@ -143,7 +150,7 @@ export default class principal extends Phaser.Scene {
         end: 19,
       }),
       frameRate: 7,
-      repeat: -1
+      repeat: -1,
     });
     //
     this.anims.create({
@@ -153,7 +160,7 @@ export default class principal extends Phaser.Scene {
         end: 23,
       }),
       frameRate: 7,
-      repeat: -1
+      repeat: -1,
     });
     //
     this.anims.create({
@@ -163,7 +170,7 @@ export default class principal extends Phaser.Scene {
         end: 27,
       }),
       frameRate: 7,
-      repeat: -1
+      repeat: -1,
     });
     //
     this.anims.create({
@@ -173,7 +180,7 @@ export default class principal extends Phaser.Scene {
         end: 31,
       }),
       frameRate: 7,
-      repeat: -1
+      repeat: -1,
     });
     //
     this.anims.create({
@@ -183,15 +190,16 @@ export default class principal extends Phaser.Scene {
         end: 16,
       }),
       frameRate: 7,
-      repeat: -1
+      repeat: -1,
     });
 
     /* Jogador 2 */
     this.jogador_2 = this.add.sprite(400, 225, "Maria");
 
     this.Mochila = this.physics.add.sprite(550, 300, "Mochila");
+    this.portao = this.physics.add.sprite(300, 300, "portao");
 
-    /* Layer 1: parede */
+    /* muros */
     this.muros = this.mapa_principal.createLayer(
       "muros",
       [
@@ -340,7 +348,7 @@ export default class principal extends Phaser.Scene {
     this.physics.add.collider(
       this.jogador_1,
       this.terreno,
-      this.collision,
+      this.colission,
       null,
       this
     );
@@ -348,7 +356,7 @@ export default class principal extends Phaser.Scene {
     this.physics.add.collider(
       this.jogador_1,
       this.muros,
-      this.collision,
+      this.colission,
       null,
       this
     );
@@ -372,11 +380,12 @@ export default class principal extends Phaser.Scene {
 
     /* Efeitos sonoros */
     this.metal_som = this.sound.add("metal-som");
+    this.colisao_som = this.sound.add("colisao-som");
   }
 
   update() {}
 
-  collision() {
+  colission() {
     /* Tremer a tela por 100 ms com baixa intensidade (0,01) */
     this.cameras.main.shake(100, 0.01);
 
@@ -386,7 +395,7 @@ export default class principal extends Phaser.Scene {
     }
 
     /* Tocar efeito sonoro */
-    this.metal_som.play();
+    this.colisao_som.play();
   }
 
   coletar_Mochila() {
