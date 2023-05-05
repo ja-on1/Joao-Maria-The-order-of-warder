@@ -24,6 +24,12 @@ import CenadeLaboratorio from "./cena-laboratorio.js"
 class Game extends Phaser.Game{
   constructor() {
     super(config);
+
+    this.socket = io();
+    this.socket.on("connect", () => {
+      console.log("Conectado ao servidor para troca de mensagens.")
+    });
+    
     //
     // Carregar as cenas
     this.scene.add("abertura", CenaDeAbertura);

@@ -381,9 +381,34 @@ export default class principal extends Phaser.Scene {
     /* Efeitos sonoros */
     this.metal_som = this.sound.add("metal-som");
     this.colisao_som = this.sound.add("colisao-som");
+  
+  this.game.socket.on("estado-notificar", ({ frame, x, y }) => {
+      this.jogador_2.setFrame(frame);
+      this.jogador_2.x = x;
+      this.jogador_2.y = y;
+    });
+
+    this.game.socket.on("arfetatos-notificar", (artefatos) => {
+      if (artefatos.cristal) {
+        this.cristal.disableBody(true, true);
+      }
+    });
   }
 
-  update() {}
+
+  update() {
+    let frame;
+    try {
+      frame = this.jogador_1.anims.getFrameName();
+    } catch (e) {
+      frame = 0;
+    }
+    this.game.socket.emit("estado-publicar", this.game.sala, {
+      frame: frame,
+      x: this.jogador_1.body.x + 32,
+      y: this.jogador_1.body.y + 32,
+    });
+  }
 
   colission() {
     /* Tremer a tela por 100 ms com baixa intensidade (0,01) */
@@ -401,5 +426,7 @@ export default class principal extends Phaser.Scene {
   coletar_Mochila() {
     this.jogador_1_com_mochila = true;
     this.Mochila.disableBody(true, true);
-  }
+  };
 }
+
+
