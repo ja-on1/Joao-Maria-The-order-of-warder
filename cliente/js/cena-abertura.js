@@ -67,30 +67,6 @@ export default class abertura extends Phaser.Scene {
         y: 125,
         botao: undefined,
       },
-      {
-        numero: "6",
-        x: 450,
-        y: 175,
-        botao: undefined,
-      },
-      {
-        numero: "7",
-        x: 450,
-        y: 225,
-        botao: undefined,
-      },
-      {
-        numero: "8",
-        x: 450,
-        y: 275,
-        botao: undefined,
-      },
-      {
-        numero: "9",
-        x: 450,
-        y: 325,
-        botao: undefined,
-      },
     ];
 
     this.salas.forEach((item) => {

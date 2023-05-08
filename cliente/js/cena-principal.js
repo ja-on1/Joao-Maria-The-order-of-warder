@@ -91,12 +91,22 @@ export default class principal extends Phaser.Scene {
     );
 
     /* jogador 1 */
-    this.jogador_1 = this.physics.add.sprite(200, 225, "João");
+    if (this.game.jogadores.primeiro === this.game.socket.id) {
+      this.local = "João";
+      this.jogador_1 = this.physics.add.sprite(1500, 558, this.local);
+      this.remoto = "Maria";
+      this.jogador_2 = this.add.sprite(1500, 558, this.remoto);
+    } else {
+      this.remoto = "João";
+      this.jogador_2 = this.add.sprite(1500, 558, this.remoto);
+      this.local = "Maria";
+      this.jogador_1 = this.physics.add.sprite(1500, 558, this.local);
+    }
     this.jogador_1_com_mochila = false;
 
     this.anims.create({
       key: "jogador-1-baixo-sem-mochila",
-      frames: this.anims.generateFrameNumbers("João", {
+      frames: this.anims.generateFrameNumbers(this.local, {
         start: 0,
         end: 3,
       }),
@@ -106,7 +116,7 @@ export default class principal extends Phaser.Scene {
     //
     this.anims.create({
       key: "jogador-1-cima-sem-mochila",
-      frames: this.anims.generateFrameNumbers("João", {
+      frames: this.anims.generateFrameNumbers(this.local, {
         start: 4,
         end: 7,
       }),
@@ -116,7 +126,7 @@ export default class principal extends Phaser.Scene {
     //
     this.anims.create({
       key: "jogador-1-esquerda-sem-mochila",
-      frames: this.anims.generateFrameNumbers("João", {
+      frames: this.anims.generateFrameNumbers(this.local, {
         start: 8,
         end: 11,
       }),
@@ -126,7 +136,7 @@ export default class principal extends Phaser.Scene {
     //
     this.anims.create({
       key: "jogador-1-direita-sem-mochila",
-      frames: this.anims.generateFrameNumbers("João", {
+      frames: this.anims.generateFrameNumbers(this.local, {
         start: 12,
         end: 15,
       }),
@@ -136,7 +146,7 @@ export default class principal extends Phaser.Scene {
     //
     this.anims.create({
       key: "jogador-1-parado-sem-mochila",
-      frames: this.anims.generateFrameNumbers("João", {
+      frames: this.anims.generateFrameNumbers(this.local, {
         start: 0,
         end: 0,
       }),
@@ -145,7 +155,7 @@ export default class principal extends Phaser.Scene {
     //
     this.anims.create({
       key: "jogador-1-baixo-com-mochila",
-      frames: this.anims.generateFrameNumbers("João", {
+      frames: this.anims.generateFrameNumbers(this.local, {
         start: 16,
         end: 19,
       }),
@@ -155,7 +165,7 @@ export default class principal extends Phaser.Scene {
     //
     this.anims.create({
       key: "jogador-1-cima-com-mochila",
-      frames: this.anims.generateFrameNumbers("João", {
+      frames: this.anims.generateFrameNumbers(this.local, {
         start: 20,
         end: 23,
       }),
@@ -165,7 +175,7 @@ export default class principal extends Phaser.Scene {
     //
     this.anims.create({
       key: "jogador-1-esquerda-com-mochila",
-      frames: this.anims.generateFrameNumbers("João", {
+      frames: this.anims.generateFrameNumbers(this.local, {
         start: 24,
         end: 27,
       }),
@@ -175,7 +185,7 @@ export default class principal extends Phaser.Scene {
     //
     this.anims.create({
       key: "jogador-1-direita-com-mochila",
-      frames: this.anims.generateFrameNumbers("João", {
+      frames: this.anims.generateFrameNumbers(this.local, {
         start: 28,
         end: 31,
       }),
@@ -185,19 +195,26 @@ export default class principal extends Phaser.Scene {
     //
     this.anims.create({
       key: "jogador-1-parado-com-mochila",
-      frames: this.anims.generateFrameNumbers("João", {
+      frames: this.anims.generateFrameNumbers(this.local, {
         start: 16,
         end: 16,
       }),
       frameRate: 7,
       repeat: -1,
     });
-
-    /* Jogador 2 */
-    this.jogador_2 = this.add.sprite(400, 225, "Maria");
+    //
+    this.anims.create({
+      key: "portao",
+      frames: this.anims.generateFrameNumbers(this.local, {
+        start: 0,
+        end: 3,
+      }),
+      frameRate: 7,
+      repeat: -1,
+    });
 
     this.Mochila = this.physics.add.sprite(550, 300, "Mochila");
-    this.portao = this.physics.add.sprite(300, 300, "portao");
+    this.portao = this.physics.add.sprite(1597, 661, "portao");
 
     /* muros */
     this.muros = this.mapa_principal.createLayer(
@@ -382,21 +399,22 @@ export default class principal extends Phaser.Scene {
     this.metal_som = this.sound.add("metal-som");
     this.colisao_som = this.sound.add("colisao-som");
   
-  this.game.socket.on("estado-notificar", ({ frame, x, y }) => {
+    this.game.socket.on("estado-notificar", ({ frame, x, y }) => {
       this.jogador_2.setFrame(frame);
       this.jogador_2.x = x;
       this.jogador_2.y = y;
     });
 
     this.game.socket.on("arfetatos-notificar", (artefatos) => {
-      if (artefatos.cristal) {
-        this.cristal.disableBody(true, true);
+      if (artefatos.mochila) {
+        this.Mochila.disableBody(true, true);
       }
     });
   }
 
 
   update() {
+    console.log(this.jogador_1.x, this.jogador_1.y)
     let frame;
     try {
       frame = this.jogador_1.anims.getFrameName();
@@ -424,9 +442,10 @@ export default class principal extends Phaser.Scene {
   }
 
   coletar_Mochila() {
-    this.jogador_1_com_mochila = true;
     this.Mochila.disableBody(true, true);
-  };
+    this.game.socket.emit("arfetatos-publicar", this.game.sala, {
+      mochila: true});
+  }
 }
 
 
