@@ -214,7 +214,17 @@ export default class principal extends Phaser.Scene {
     });
 
     this.Mochila = this.physics.add.sprite(550, 300, "Mochila");
-    this.portao = this.physics.add.sprite(1597, 661, "portao");
+    this.portao = this.physics.add.sprite(1597, 661, "portao").setImmovable();
+
+    this.anims.create({
+      key: "portao-fechando",
+      frames: this.anims.generateFrameNumbers("portao", {
+        start: 0,
+        end: 23,
+      }),
+      frameRate: 30,
+      repeat: 0,
+    });
 
     /* muros */
     this.muros = this.mapa_principal.createLayer(
@@ -395,10 +405,18 @@ export default class principal extends Phaser.Scene {
       this
     );
 
+    this.portao_fechando = this.physics.add.overlap(
+      this.jogador_1,
+      this.portao,
+      this.passar_pelo_portao,
+      null,
+      this
+    );
+
     /* Efeitos sonoros */
     this.metal_som = this.sound.add("metal-som");
     this.colisao_som = this.sound.add("colisao-som");
-  
+
     this.game.socket.on("estado-notificar", ({ frame, x, y }) => {
       this.jogador_2.setFrame(frame);
       this.jogador_2.x = x;
@@ -412,9 +430,8 @@ export default class principal extends Phaser.Scene {
     });
   }
 
-
   update() {
-    console.log(this.jogador_1.x, this.jogador_1.y)
+    console.log(this.jogador_1.x, this.jogador_1.y);
     let frame;
     try {
       frame = this.jogador_1.anims.getFrameName();
@@ -444,8 +461,27 @@ export default class principal extends Phaser.Scene {
   coletar_Mochila() {
     this.Mochila.disableBody(true, true);
     this.game.socket.emit("arfetatos-publicar", this.game.sala, {
-      mochila: true});
+      mochila: true,
+    });
+  }
+
+  passar_pelo_portao() {
+    this.portao_fechando.destroy();
+    this.portao.anims.play("portao-fechando");
+    this.timer = 1;
+    this.timedEvent = this.time.addEvent({
+      delay: 1000,
+      callback: this.countdown,
+      callbackScope: this,
+      loop: true,
+    });
+  }
+
+  countdown() {
+    this.timer -= 1;
+    if (this.timer <= 0) {
+      this.timedEvent.destroy();
+      this.physics.add.collider(this.jogador_1, this.portao, null, null, this);
+    }
   }
 }
-
-
