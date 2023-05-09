@@ -35,14 +35,16 @@ export default class principal extends Phaser.Scene {
     /* Portão */
     this.load.spritesheet("portao", "./assets/portao.png", {
       frameWidth: 100,
-      frameHeight: 80,
+      frameHeight: 83,
     });
 
-    /*Botões */ this.load.spritesheet("botao", "./assets/botões/botao.png", {
+    /*Botões */
+    this.load.spritesheet("botao", "./assets/botões/botao.png", {
       frameWidth: 64,
       frameHeight: 64,
     });
 
+    /*tela cheia */
     this.load.spritesheet("tela-cheia", "./assets/botões/tela-cheia.png", {
       frameWidth: 64,
       frameHeight: 64,
@@ -90,7 +92,7 @@ export default class principal extends Phaser.Scene {
       0
     );
 
-    /* jogador 1 */
+    /* jogadores */
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = "João";
       this.jogador_1 = this.physics.add.sprite(1500, 558, this.local);
@@ -103,6 +105,7 @@ export default class principal extends Phaser.Scene {
       this.jogador_1 = this.physics.add.sprite(1500, 558, this.local);
     }
     this.jogador_1_com_mochila = false;
+    
 
     this.anims.create({
       key: "jogador-1-baixo-sem-mochila",
@@ -239,11 +242,11 @@ export default class principal extends Phaser.Scene {
     );
 
     /* Botões */
-    this.botao_cima = this.add
+    this.deped_cima = this.add
       .sprite(100, 325, "botao", 0)
       .setInteractive()
       .on("pointerover", () => {
-        this.botao_cima.setFrame(1);
+        this.deped_cima.setFrame(1);
         this.jogador_1.setVelocityY(-200);
         if (this.jogador_1_com_mochila) {
           this.jogador_1.anims.play("jogador-1-cima-com-mochila");
@@ -252,7 +255,7 @@ export default class principal extends Phaser.Scene {
         }
       })
       .on("pointerout", () => {
-        this.botao_cima.setFrame(0);
+        this.deped_cima.setFrame(0);
         this.jogador_1.setVelocityY(0);
         if (this.jogador_1_com_mochila) {
           this.jogador_1.anims.play("jogador-1-parado-com-mochila");
@@ -262,11 +265,11 @@ export default class principal extends Phaser.Scene {
       })
       .setScrollFactor(0);
 
-    this.botao_baixo = this.add
+    this.deped_baixo = this.add
       .sprite(100, 415, "botao", 2)
       .setInteractive()
       .on("pointerover", () => {
-        this.botao_baixo.setFrame(3);
+        this.deped_baixo.setFrame(3);
         this.jogador_1.setVelocityY(200);
         if (this.jogador_1_com_mochila) {
           this.jogador_1.anims.play("jogador-1-baixo-com-mochila");
@@ -275,7 +278,7 @@ export default class principal extends Phaser.Scene {
         }
       })
       .on("pointerout", () => {
-        this.botao_baixo.setFrame(2);
+        this.deped_baixo.setFrame(2);
         this.jogador_1.setVelocityY(0);
         if (this.jogador_1_com_mochila) {
           this.jogador_1.anims.play("jogador-1-parado-com-mochila");
@@ -285,11 +288,11 @@ export default class principal extends Phaser.Scene {
       })
       .setScrollFactor(0);
 
-    this.botao_esquerda = this.add
+    this.deped_esquerda = this.add
       .sprite(50, 370, "botao", 4)
       .setInteractive()
       .on("pointerover", () => {
-        this.botao_esquerda.setFrame(5);
+        this.deped_esquerda.setFrame(5);
         this.jogador_1.setVelocityX(-200);
         if (this.jogador_1_com_mochila) {
           this.jogador_1.anims.play("jogador-1-esquerda-com-mochila");
@@ -298,7 +301,7 @@ export default class principal extends Phaser.Scene {
         }
       })
       .on("pointerout", () => {
-        this.botao_esquerda.setFrame(4);
+        this.deped_esquerda.setFrame(4);
         this.jogador_1.setVelocityX(0);
         if (this.jogador_1_com_mochila) {
           this.jogador_1.anims.play("jogador-1-parado-com-mochila");
@@ -308,11 +311,11 @@ export default class principal extends Phaser.Scene {
       })
       .setScrollFactor(0);
 
-    this.botao_direita = this.add
+    this.deped_direita = this.add
       .sprite(150, 370, "botao", 6)
       .setInteractive()
       .on("pointerover", () => {
-        this.botao_direita.setFrame(7);
+        this.deped_direita.setFrame(7);
         this.jogador_1.setVelocityX(200);
         if (this.jogador_1_com_mochila) {
           this.jogador_1.anims.play("jogador-1-direita-com-mochila");
@@ -321,7 +324,7 @@ export default class principal extends Phaser.Scene {
         }
       })
       .on("pointerout", () => {
-        this.botao_direita.setFrame(6);
+        this.deped_direita.setFrame(6);
         this.jogador_1.setVelocityX(0);
         if (this.jogador_1_com_mochila) {
           this.jogador_1.anims.play("jogador-1-parado-com-mochila");
@@ -331,25 +334,25 @@ export default class principal extends Phaser.Scene {
       })
       .setScrollFactor(0);
 
-    this.botao_menu = this.add
+    this.deped_menu = this.add
       .sprite(400, 400, "botao", 12)
       .setInteractive()
       .on("pointerover", () => {
-        this.botao_menu.setFrame(13);
+        this.deped_menu.setFrame(13);
       })
       .on("pointerout", () => {
-        this.botao_menu.setFrame(12);
+        this.deped_menu.setFrame(12);
       })
       .setScrollFactor(0);
 
-    this.botao_a = this.add
+    this.deped_a = this.add
       .sprite(750, 400, "botao", 8)
       .setInteractive()
       .on("pointerover", () => {
-        this.botao_a.setFrame(9);
+        this.deped_a.setFrame(9);
       })
       .on("pointerout", () => {
-        this.botao_a.setFrame(8);
+        this.deped_a.setFrame(8);
       })
       .setScrollFactor(0);
 

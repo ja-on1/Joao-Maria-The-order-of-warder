@@ -6,6 +6,11 @@ export default class abertura extends Phaser.Scene {
   preload() {
     this.load.image("abertura", "./assets/abertura.png");
     this.load.image("grade", "./assets/grade.png");
+    this.load.image("sala", "./assets/sala.png");
+    this.load.spritesheet("botao", "./assets/botões/botao_salas.png", {
+      frameWidth: 64,
+      frameHeight: 32,
+    });
   }
 
   create() {
@@ -16,68 +21,73 @@ export default class abertura extends Phaser.Scene {
       .on("pointerdown", () => {
         this.imagem.destroy();
         this.texto.destroy();
-        this.game.scene.start("principal");
+        this.game.scene.start("sala");
       });
-    
-    /* Texto em destaque */
-    this.texto = this.add.text(370, 300, "Start", {
-      fill: "#FFFFFF",
-    });
-  
-  this.grade = this.add.tileSprite(400, 225, 600, 300, "grade");
-    this.mensagem = this.add.text(100, 75, "Escolha uma sala para entrar:", {
-      fontFamily: "monospace",
-      font: "32px Courier",
-      fill: "#cccccc",
-    });
+
+    /* Botões */
+    this.botao_sala_1 = this.add
+      .sprite(750, 400, "botao", 8)
+      .setInteractive()
+      .on("pointerover", () => {
+        this.botao_a.setFrame(9);
+      })
+      .on("pointerout", () => {
+        this.botao_a.setFrame(8);
+      })
+      .setScrollFactor(0);
+
+    this.imagem = this.add
+      .image(400, 225, "sala")
+      .setInteractive()
+      .on("pointerdown", () => {});
+
     this.salas = [
-      {
-        numero: "0",
-        x: 150,
-        y: 125,
-        botao: undefined,
-      },
       {
         numero: "1",
         x: 150,
-        y: 175,
-        botao: undefined,
+        y: 125,
+        frame: 0,
       },
       {
         numero: "2",
         x: 150,
-        y: 225,
-        botao: undefined,
+        y: 175,
+        frame: 2,
       },
       {
         numero: "3",
         x: 150,
-        y: 275,
-        botao: undefined,
+        y: 225,
+        frame: 4,
       },
-      {
+      /*{
         numero: "4",
         x: 150,
+        y: 275,
+        frame: "botao4",
+      },
+      {
+        numero: "5",
+        x: 150,
         y: 325,
-        botao: undefined,
+        imagem: "botao5",
       },
       {
         numero: "5",
         x: 450,
         y: 125,
-        botao: undefined,
-      },
+        imagem: "botao6",
+      },*/
     ];
 
     this.salas.forEach((item) => {
       item.botao = this.add
-        .text(item.x, item.y, "[Sala " + item.numero + "]", {
-          fontFamily: "monospace",
-          font: "32px Courier",
-          fill: "#cccccc",
-        })
+        .image(item.x, item.y, "botao", item.frame)
         .setInteractive()
         .on("pointerdown", () => {
+          item.botao.setFrame(item.frame + 1);
+        })
+        .on("pointerup", () => {
           this.salas.forEach((item) => {
             item.botao.destroy();
           });
@@ -88,13 +98,10 @@ export default class abertura extends Phaser.Scene {
 
     this.game.socket.on("jogadores", (jogadores) => {
       if (jogadores.segundo) {
-        this.mensagem.destroy();
         this.game.jogadores = jogadores;
         this.game.scene.start("principal");
       } else if (jogadores.primeiro) {
-        this.grade.destroy();
         this.imagem.destroy();
-        this.mensagem.setText("Aguardando segundo jogador...");
       }
     });
   }
