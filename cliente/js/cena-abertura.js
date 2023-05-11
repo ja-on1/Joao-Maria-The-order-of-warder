@@ -5,8 +5,6 @@ export default class abertura extends Phaser.Scene {
 
   preload() {
     this.load.image("abertura", "./assets/abertura.png");
-    this.load.image("grade", "./assets/grade.png");
-    this.load.image("sala", "./assets/sala.png");
     this.load.spritesheet("botao", "./assets/botões/botao_salas.png", {
       frameWidth: 64,
       frameHeight: 32,
@@ -25,59 +23,43 @@ export default class abertura extends Phaser.Scene {
       });
 
     /* Botões */
-    this.botao_sala_1 = this.add
-      .sprite(750, 400, "botao", 8)
-      .setInteractive()
-      .on("pointerover", () => {
-        this.botao_a.setFrame(9);
-      })
-      .on("pointerout", () => {
-        this.botao_a.setFrame(8);
-      })
-      .setScrollFactor(0);
-
-    this.imagem = this.add
-      .image(400, 225, "sala")
-      .setInteractive()
-      .on("pointerdown", () => {});
-
     this.salas = [
       {
-        numero: "1",
+        numero: 1,
         x: 150,
         y: 125,
         frame: 0,
       },
       {
-        numero: "2",
+        numero: 2,
         x: 150,
         y: 175,
         frame: 2,
       },
       {
-        numero: "3",
+        numero: 3,
         x: 150,
         y: 225,
         frame: 4,
       },
-      /*{
-        numero: "4",
+      {
+        numero: 4,
         x: 150,
         y: 275,
-        frame: "botao4",
+        frame: 6,
       },
       {
-        numero: "5",
+        numero: 5,
         x: 150,
         y: 325,
-        imagem: "botao5",
+        frame: 8,
       },
       {
-        numero: "5",
+        numero: 6,
         x: 450,
         y: 125,
-        imagem: "botao6",
-      },*/
+        frame: 10,
+      },
     ];
 
     this.salas.forEach((item) => {
@@ -102,6 +84,7 @@ export default class abertura extends Phaser.Scene {
         this.game.scene.start("principal");
       } else if (jogadores.primeiro) {
         this.imagem.destroy();
+        this.texto = this.add.text(50, 50, "Aguardando jogador...")
       }
     });
   }
