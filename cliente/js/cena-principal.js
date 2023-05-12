@@ -121,14 +121,7 @@ export default class principal extends Phaser.Scene {
 
     this.arcas = this.cena_principal.createLayer(
       "arcas",
-      this.tileset_principal_cabana,
-      0,
-      0
-    );
-
-    this.arcas = this.cena_principal.createLayer(
-      "arcas",
-      this.tileset_principal_muros2,
+      [this.tileset_principal_cabana, this.tileset_principal_casa],
       0,
       0
     );
