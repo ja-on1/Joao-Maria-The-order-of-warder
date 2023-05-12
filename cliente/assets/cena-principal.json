@@ -54,7 +54,7 @@
         {
          "columns":3,
          "firstgid":1,
-         "image":"C:\/Users\/joaol\/Desktop\/Sprites\/Muro\/Arvores.png",
+         "image":"arvores.png",
          "imageheight":64,
          "imagewidth":192,
          "margin":0,
@@ -95,7 +95,7 @@
         {
          "columns":20,
          "firstgid":4,
-         "image":"C:\/Users\/joaol\/Downloads\/chao.png",
+         "image":"chao.png",
          "imageheight":832,
          "imagewidth":1280,
          "margin":0,
@@ -108,7 +108,7 @@
         {
          "columns":4,
          "firstgid":264,
-         "image":"C:\/Users\/joaol\/Downloads\/casa.png",
+         "image":"casa.png",
          "imageheight":256,
          "imagewidth":256,
          "margin":0,
@@ -266,7 +266,7 @@
         {
          "columns":1,
          "firstgid":280,
-         "image":"C:\/Users\/joaol\/Downloads\/muros.png",
+         "image":"muros.png",
          "imageheight":64,
          "imagewidth":71,
          "margin":0,
@@ -289,7 +289,7 @@
         {
          "columns":4,
          "firstgid":281,
-         "image":"C:\/Users\/joaol\/Downloads\/cabana.png",
+         "image":"cabana.png",
          "imageheight":320,
          "imagewidth":256,
          "margin":0,
@@ -483,7 +483,7 @@
         {
          "columns":2,
          "firstgid":301,
-         "image":"C:\/Users\/joaol\/Downloads\/muros2.png",
+         "image":"muros2.png",
          "imageheight":64,
          "imagewidth":128,
          "margin":0,

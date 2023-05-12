@@ -6,13 +6,18 @@ export default class principal extends Phaser.Scene {
   preload() {
     // Mapa
     /* Tilemap */
-    this.load.tilemapTiledJSON("mapa-principal", "./assets/mapa.json");
+    this.load.tilemapTiledJSON(
+      "cena-principal",
+      "./assets/cena-principal.json"
+    );
 
     /* Tilesets */
     this.load.image("chao", "./assets/chao.png");
     this.load.image("casa", "./assets/casa.png");
     this.load.image("arvores", "./assets/arvores.png");
     this.load.image("muros", "./assets/muros.png");
+    this.load.image("muros2", "./assets/muros2.png");
+    this.load.image("cabana", "./assets/cabana.png");
 
     /* Personagem 1 */
     this.load.spritesheet("João", "./assets/players/joao.png", {
@@ -62,30 +67,38 @@ export default class principal extends Phaser.Scene {
     this.trilha.play();
 
     /* Tilemap */
-    this.mapa_principal = this.make.tilemap({
-      key: "mapa-principal",
+    this.cena_principal = this.make.tilemap({
+      key: "cena-principal",
     });
 
     /* tilesets */
-    this.tileset_principal_chao = this.mapa_principal.addTilesetImage(
+    this.tileset_principal_chao = this.cena_principal.addTilesetImage(
       "chao",
       "chao"
     );
-    this.tileset_principal_casa = this.mapa_principal.addTilesetImage(
+    this.tileset_principal_casa = this.cena_principal.addTilesetImage(
       "casa",
       "casa"
     );
-    this.tileset_principal_arvores = this.mapa_principal.addTilesetImage(
+    this.tileset_principal_arvores = this.cena_principal.addTilesetImage(
       "arvores",
       "arvores"
     );
-    this.tileset_principal_muros = this.mapa_principal.addTilesetImage(
+    this.tileset_principal_muros = this.cena_principal.addTilesetImage(
       "muros",
       "muros"
     );
+    this.tileset_principal_muros2 = this.cena_principal.addTilesetImage(
+      "muros2",
+      "muros2"
+    );
+    this.tileset_principal_cabana = this.cena_principal.addTilesetImage(
+      "cabana",
+      "cabana"
+    );
 
     /* Layer 0: chão */
-    this.terreno = this.mapa_principal.createLayer(
+    this.terreno = this.cena_principal.createLayer(
       "terreno",
       this.tileset_principal_chao,
       0,
@@ -95,17 +108,30 @@ export default class principal extends Phaser.Scene {
     /* jogadores */
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = "João";
-      this.jogador_1 = this.physics.add.sprite(3180, 738, this.local);
+      this.jogador_1 = this.physics.add.sprite(2361, 2229, this.local);
       this.remoto = "Maria";
-      this.jogador_2 = this.add.sprite(3180, 772, this.remoto);
+      this.jogador_2 = this.add.sprite(1756, 729, this.remoto);
     } else {
       this.remoto = "João";
-      this.jogador_2 = this.add.sprite(3180, 738, this.remoto);
+      this.jogador_2 = this.add.sprite(2361, 2229, this.remoto);
       this.local = "Maria";
-      this.jogador_1 = this.physics.add.sprite(3180, 772, this.local);
+      this.jogador_1 = this.physics.add.sprite(1756, 729, this.local);
     }
     this.jogador_1_com_mochila = false;
-    
+
+    this.arcas = this.cena_principal.createLayer(
+      "arcas",
+      this.tileset_principal_cabana,
+      0,
+      0
+    );
+
+    this.arcas = this.cena_principal.createLayer(
+      "arcas",
+      this.tileset_principal_muros2,
+      0,
+      0
+    );
 
     this.anims.create({
       key: "jogador-1-baixo-sem-mochila",
@@ -230,12 +256,14 @@ export default class principal extends Phaser.Scene {
     });
 
     /* muros */
-    this.muros = this.mapa_principal.createLayer(
+    this.muros = this.cena_principal.createLayer(
       "muros",
       [
         this.tileset_principal_muros,
+        this.tileset_principal_muros2,
         this.tileset_principal_arvores,
         this.tileset_principal_casa,
+        this.tileset_principal_cabana,
       ],
       0,
       0
@@ -373,6 +401,7 @@ export default class principal extends Phaser.Scene {
     /* Colisões por tile */
     this.muros.setCollisionByProperty({ collides: true });
     this.terreno.setCollisionByProperty({ collides: true });
+    this.arcas.setCollisionByProperty({ collides: true });
 
     /* Colisão entre personagem 1 e mapa (por layer) */
     this.physics.add.collider(
@@ -390,7 +419,13 @@ export default class principal extends Phaser.Scene {
       null,
       this
     );
-
+    this.physics.add.collider(
+      this.jogador_1,
+      this.arcas,
+      this.colission,
+      null,
+      this
+    );
     /* Colisão com os limites da cena */
     this.jogador_1.setCollideWorldBounds(true);
 
