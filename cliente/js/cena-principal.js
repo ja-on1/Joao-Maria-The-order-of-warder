@@ -266,7 +266,7 @@ export default class principal extends Phaser.Scene {
     this.botao_cima = this.add
       .sprite(100, 325, "botao.", 0)
       .setInteractive()
-      .on("pointerover", () => {
+      .on("pointerdown", () => {
         this.botao_cima.setFrame(1);
         this.jogador_1.setVelocityY(-200);
         if (this.jogador_1_com_mochila) {
@@ -275,7 +275,7 @@ export default class principal extends Phaser.Scene {
           this.jogador_1.anims.play("jogador-1-cima-sem-mochila");
         }
       })
-      .on("pointerout", () => {
+      .on("pointerup", () => {
         this.botao_cima.setFrame(0);
         this.jogador_1.setVelocityY(0);
         if (this.jogador_1_com_mochila) {
@@ -289,7 +289,7 @@ export default class principal extends Phaser.Scene {
     this.botao_baixo = this.add
       .sprite(100, 415, "botao.", 2)
       .setInteractive()
-      .on("pointerover", () => {
+      .on("pointerdown", () => {
         this.botao_baixo.setFrame(3);
         this.jogador_1.setVelocityY(200);
         if (this.jogador_1_com_mochila) {
@@ -298,7 +298,7 @@ export default class principal extends Phaser.Scene {
           this.jogador_1.anims.play("jogador-1-baixo-sem-mochila");
         }
       })
-      .on("pointerout", () => {
+      .on("pointerup", () => {
         this.botao_baixo.setFrame(2);
         this.jogador_1.setVelocityY(0);
         if (this.jogador_1_com_mochila) {
@@ -312,7 +312,7 @@ export default class principal extends Phaser.Scene {
     this.botao_esquerda = this.add
       .sprite(50, 370, "botao.", 4)
       .setInteractive()
-      .on("pointerover", () => {
+      .on("pointerdown", () => {
         this.botao_esquerda.setFrame(5);
         this.jogador_1.setVelocityX(-200);
         if (this.jogador_1_com_mochila) {
@@ -321,7 +321,7 @@ export default class principal extends Phaser.Scene {
           this.jogador_1.anims.play("jogador-1-esquerda-sem-mochila");
         }
       })
-      .on("pointerout", () => {
+      .on("pointerup", () => {
         this.botao_esquerda.setFrame(4);
         this.jogador_1.setVelocityX(0);
         if (this.jogador_1_com_mochila) {
@@ -335,7 +335,7 @@ export default class principal extends Phaser.Scene {
     this.botao_direita = this.add
       .sprite(150, 370, "botao.", 6)
       .setInteractive()
-      .on("pointerover", () => {
+      .on("pointerdown", () => {
         this.botao_direita.setFrame(7);
         this.jogador_1.setVelocityX(200);
         if (this.jogador_1_com_mochila) {
@@ -344,7 +344,7 @@ export default class principal extends Phaser.Scene {
           this.jogador_1.anims.play("jogador-1-direita-sem-mochila");
         }
       })
-      .on("pointerout", () => {
+      .on("pointerup", () => {
         this.botao_direita.setFrame(6);
         this.jogador_1.setVelocityX(0);
         if (this.jogador_1_com_mochila) {
@@ -358,10 +358,10 @@ export default class principal extends Phaser.Scene {
     this.botao_menu = this.add
       .sprite(400, 400, "botao.", 12)
       .setInteractive()
-      .on("pointerover", () => {
+      .on("pointerdown", () => {
         this.botao_menu.setFrame(13);
       })
-      .on("pointerout", () => {
+      .on("pointerup", () => {
         this.botao_menu.setFrame(12);
       })
       .setScrollFactor(0);
@@ -369,10 +369,10 @@ export default class principal extends Phaser.Scene {
     this.botao_a = this.add
       .sprite(750, 400, "botao.", 8)
       .setInteractive()
-      .on("pointerover", () => {
+      .on("pointerdown", () => {
         this.botao_a.setFrame(9);
       })
-      .on("pointerout", () => {
+      .on("pointerup", () => {
         this.botao_a.setFrame(8);
       })
       .setScrollFactor(0);
