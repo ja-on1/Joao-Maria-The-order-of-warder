@@ -55,6 +55,12 @@ export default class principal extends Phaser.Scene {
       frameHeight: 64,
     });
 
+    /*Monstro */
+    this.load.spritesheet("monstro", "./assets/monstro.png", {
+      frameWidth: 80,
+      frameHeight: 105,
+    });
+
     /* Sons */
     this.load.audio("metal-som", "./assets/metal.mp3");
     this.load.audio("trilha", "./assets/trilha.mp3");
@@ -108,7 +114,8 @@ export default class principal extends Phaser.Scene {
     /* jogadores */
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = "João";
-      this.jogador_1 = this.physics.add.sprite(2361, 2229, this.local);
+      //this.jogador_1 = this.physics.add.sprite(2361, 2229, this.local);
+      this.jogador_1 = this.physics.add.sprite(1597, 740, this.local);
       this.remoto = "Maria";
       this.jogador_2 = this.add.sprite(1756, 729, this.remoto);
     } else {
@@ -118,6 +125,8 @@ export default class principal extends Phaser.Scene {
       this.jogador_1 = this.physics.add.sprite(1756, 729, this.local);
     }
     this.jogador_1_com_mochila = false;
+
+    this.monstro = this.physics.add.sprite(1597, 740, "monstro");
 
     this.arcas = this.cena_principal.createLayer(
       "arcas",
@@ -235,7 +244,7 @@ export default class principal extends Phaser.Scene {
       repeat: -1,
     });
 
-    this.Mochila = this.physics.add.sprite(550, 300, "Mochila");
+    this.Mochila = this.physics.add.sprite(400, 2463, "Mochila");
     this.portao = this.physics.add.sprite(1597, 661, "portao").setImmovable();
 
     this.anims.create({
@@ -245,6 +254,56 @@ export default class principal extends Phaser.Scene {
         end: 23,
       }),
       frameRate: 30,
+      repeat: 0,
+    });
+
+    this.anims.create({
+      key: "monstro-baixo",
+      frames: this.anims.generateFrameNumbers("monstro", {
+        start: 0,
+        end: 3,
+      }),
+      frameRate: 7,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "monstro-cima",
+      frames: this.anims.generateFrameNumbers("monstro", {
+        start: 4,
+        end: 7,
+      }),
+      frameRate: 7,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "monstro-esquerda",
+      frames: this.anims.generateFrameNumbers("monstro", {
+        start: 8,
+        end: 11,
+      }),
+      frameRate: 7,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "monstro-direita",
+      frames: this.anims.generateFrameNumbers("monstro", {
+        start: 12,
+        end: 15,
+      }),
+      frameRate: 7,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "monstro-parado",
+      frames: this.anims.generateFrameNumbers("monstro", {
+        start: 0,
+        end: 0,
+      }),
+      frameRate: 1,
       repeat: 0,
     });
 
@@ -454,9 +513,12 @@ export default class principal extends Phaser.Scene {
       this.jogador_2.y = y;
     });
 
-    this.game.socket.on("arfetatos-notificar", (artefatos) => {
+    this.game.socket.on("artefatos-notificar", (artefatos) => {
       if (artefatos.mochila) {
         this.Mochila.disableBody(true, true);
+      }
+      if (artefatos.portao) {
+        this.passando_pelo_portao();
       }
     });
   }
@@ -474,6 +536,33 @@ export default class principal extends Phaser.Scene {
       x: this.jogador_1.body.x + 32,
       y: this.jogador_1.body.y + 32,
     });
+
+    /* Monstro segue personagem */
+    let diffX = this.jogador_1.x - this.monstro.x;
+    if (diffX > 0) {
+      this.monstro.setVelocityX(50);
+    } else if (diffX < 0) {
+      this.monstro.setVelocityX(-50);
+    }
+
+    let diffY = this.jogador_1.y - this.monstro.y;
+    if (diffY > 0) {
+      this.monstro.setVelocityY(50);
+    } else if (diffY < 0) {
+      this.monstro.setVelocityY(-50);
+    }
+
+    if (diffX > 0) {
+      this.monstro.anims.play("monstro-direita", true);
+    } else if (diffX < 0) {
+      this.monstro.anims.play("monstro-esquerda", true);
+    } else if (diffY > 0) {
+      this.monstro.anims.play("monstro-baixo", true);
+    } else if (diffY < 0) {
+      this.monstro.anims.play("monstro-cima", true);
+    } else {
+      this.monstro.anims.play("monstro-parado");
+    }
   }
 
   colission() {
@@ -490,13 +579,21 @@ export default class principal extends Phaser.Scene {
   }
 
   coletar_Mochila() {
-    this.Mochila.disableBody(true, true);
-    this.game.socket.emit("arfetatos-publicar", this.game.sala, {
+    this.game.socket.emit("artefatos-publicar", this.game.sala, {
       mochila: true,
     });
+    this.Mochila.disableBody(true, true);
+    this.jogador_1_com_mochila = true;
   }
 
   passar_pelo_portao() {
+    this.game.socket.emit("artefatos-publicar", this.game.sala, {
+      portao: true,
+    });
+    this.passando_pelo_portao();
+  }
+
+  passando_pelo_portao() {
     this.portao_fechando.destroy();
     this.portao.anims.play("portao-fechando");
     this.timer = 1;
