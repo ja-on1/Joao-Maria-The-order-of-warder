@@ -61,6 +61,12 @@ export default class principal extends Phaser.Scene {
       frameHeight: 105,
     });
 
+    /*Vida */
+    this.load.spritesheet("vida", "assets/vida2.png", {
+      frameWidth: 87,
+      frameHeight: 29,
+    });
+
     /* Sons */
     this.load.audio("metal-som", "./assets/metal.mp3");
     this.load.audio("trilha", "./assets/trilha.mp3");
@@ -127,6 +133,14 @@ export default class principal extends Phaser.Scene {
     this.jogador_1_com_mochila = false;
 
     this.monstro = this.physics.add.sprite(1597, 740, "monstro");
+
+    this.physics.add.collider(
+      this.jogador_1,
+      this.monstro,
+      this.monstro_alcanca,
+      null,
+      this
+    );
 
     this.arcas = this.cena_principal.createLayer(
       "arcas",
@@ -521,6 +535,9 @@ export default class principal extends Phaser.Scene {
         this.passando_pelo_portao();
       }
     });
+
+    this.vida = 3;
+    this.vidaPlacar = this.add.sprite(50, 50, "vida").setScrollFactor(0);
   }
 
   update() {
@@ -562,9 +579,9 @@ export default class principal extends Phaser.Scene {
     /* Sentido no eixo X */
     let diffX = alvo.x - this.monstro.x;
     if (diffX >= 10) {
-      this.monstro.setVelocityX(50);
+      this.monstro.setVelocityX(30);
     } else if (diffX <= 10) {
-      this.monstro.setVelocityX(-50);
+      this.monstro.setVelocityX(-30);
     }
 
     /* Sentido no eixo Y */
@@ -635,5 +652,12 @@ export default class principal extends Phaser.Scene {
       this.timedEvent.destroy();
       this.physics.add.collider(this.jogador_1, this.portao, null, null, this);
     }
+  }
+
+  monstro_alcanca(jogador, monstro) {
+    this.vida--;
+    this.vidaPlacar.setFrame(3 - this.vida);
+    this.monstro.x = 1597;
+    this.monstro.y = 740;
   }
 }
