@@ -537,21 +537,45 @@ export default class principal extends Phaser.Scene {
       y: this.jogador_1.body.y + 32,
     });
 
-    /* Monstro segue personagem */
-    let diffX = this.jogador_1.x - this.monstro.x;
-    if (diffX > 0) {
+    /* Monstro segue personagem mais próximo */
+    let hipotenusa_jogador_1 = Phaser.Math.Distance.Between(
+      this.jogador_1.x,
+      this.monstro.x,
+      this.jogador_1.y,
+      this.monstro.y
+    );
+
+    let hipotenusa_jogador_2 = Phaser.Math.Distance.Between(
+      this.jogador_2.x,
+      this.monstro.x,
+      this.jogador_2.y,
+      this.monstro.y
+    );
+
+    /* Por padrão, o primeiro jogador é o alvo */
+    let alvo = this.jogador_1;
+    if (hipotenusa_jogador_1 > hipotenusa_jogador_2) {
+      /* Jogador 2 é perseguido pelo monstro */
+      alvo = this.jogador_2;
+    }
+
+    /* Sentido no eixo X */
+    let diffX = alvo.x - this.monstro.x;
+    if (diffX >= 10) {
       this.monstro.setVelocityX(50);
-    } else if (diffX < 0) {
+    } else if (diffX <= 10) {
       this.monstro.setVelocityX(-50);
     }
 
-    let diffY = this.jogador_1.y - this.monstro.y;
-    if (diffY > 0) {
+    /* Sentido no eixo Y */
+    let diffY = alvo.y - this.monstro.y;
+    if (diffY >= 10) {
       this.monstro.setVelocityY(50);
-    } else if (diffY < 0) {
+    } else if (diffY <= 10) {
       this.monstro.setVelocityY(-50);
     }
 
+    /* Animação */
     if (diffX > 0) {
       this.monstro.anims.play("monstro-direita", true);
     } else if (diffX < 0) {
