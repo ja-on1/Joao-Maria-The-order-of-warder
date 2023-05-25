@@ -84,7 +84,16 @@ export default class abertura extends Phaser.Scene {
         this.game.scene.start("principal");
       } else if (jogadores.primeiro) {
         this.imagem.destroy();
-        this.texto = this.add.text(50, 50, "Aguardando jogador...")
+        this.texto = this.add.text(50, 50, "Aguardando jogador...");
+
+        /* Captura de áudio */
+        navigator.mediaDevices
+          .getUserMedia({ video: false, audio: true })
+          .then((stream) => {
+            console.log(stream);
+            this.game.midias = stream;
+          })
+          .catch((error) => console.log(error));
       }
     });
   }

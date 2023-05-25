@@ -32,6 +32,17 @@ io.on("connection", (socket) => {
     io.to(sala).emit("jogadores", jogadores);
   });
 
+  socket.on("offer", (sala, description) => {
+  socket.broadcast.to(sala).emit("offer", description);
+  });
+
+  socket.on("candidate", (sala, candidate) => {
+  socket.broadcast.to(sala).emit("candidate", candidate);
+  });
+
+  socket.on("answer", (sala, description) => {
+  socket.broadcast.to(sala).emit("answer", description);
+  });
   socket.on("estado-publicar", (sala, estado) => {
     socket.broadcast.to(sala).emit("estado-notificar", estado);
   });
@@ -47,3 +58,5 @@ app.use(express.static("../cliente"));
 server.listen(PORT, () =>
   console.log(`Server listening on port ${PORT}!`)
 );
+
+ 
