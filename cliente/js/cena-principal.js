@@ -74,6 +74,9 @@ export default class principal extends Phaser.Scene {
   }
 
   create() {
+
+    this.game.fase = 1;
+    
     /* Trilha Sonora */
     this.trilha = this.sound.add("trilha");
     this.trilha.play();
@@ -620,9 +623,11 @@ export default class principal extends Phaser.Scene {
     this.colisao_som = this.sound.add("colisao-som");
 
     this.game.socket.on("estado-notificar", ({ frame, x, y }) => {
-      this.jogador_2.setFrame(frame);
-      this.jogador_2.x = x;
-      this.jogador_2.y = y;
+      if (cena === this.game.fase) {
+        this.jogador_2.setFrame(frame);
+        this.jogador_2.x = x;
+        this.jogador_2.y = y;
+      }
     });
 
     this.game.socket.on("artefatos-notificar", (artefatos) => {
@@ -647,6 +652,7 @@ export default class principal extends Phaser.Scene {
       frame = 0;
     }
     this.game.socket.emit("estado-publicar", this.game.sala, {
+      cena: this.game.fase,
       frame: frame,
       x: this.jogador_1.body.x + 32,
       y: this.jogador_1.body.y + 32,
