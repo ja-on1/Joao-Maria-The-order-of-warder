@@ -74,9 +74,8 @@ export default class principal extends Phaser.Scene {
   }
 
   create() {
-
     this.game.fase = 1;
-    
+
     /* Trilha Sonora */
     this.trilha = this.sound.add("trilha");
     this.trilha.play();
@@ -133,7 +132,7 @@ export default class principal extends Phaser.Scene {
       this.local = "Maria";
       this.jogador_1 = this.physics.add.sprite(1756, 729, this.local);
 
-            /* Captura de áudio */
+      /* Captura de áudio */
       navigator.mediaDevices
         .getUserMedia({ video: false, audio: true })
         .then((stream) => {
@@ -230,7 +229,7 @@ export default class principal extends Phaser.Scene {
       let conn = this.game.localConnection || this.game.remoteConnection;
       conn.addIceCandidate(new RTCIceCandidate(candidate));
     });
-  
+
     this.jogador_1_com_mochila = false;
 
     this.monstro = this.physics.add.sprite(1597, 740, "monstro");
@@ -622,7 +621,7 @@ export default class principal extends Phaser.Scene {
     this.metal_som = this.sound.add("metal-som");
     this.colisao_som = this.sound.add("colisao-som");
 
-    this.game.socket.on("estado-notificar", ({ frame, x, y }) => {
+    this.game.socket.on("estado-notificar", ({ cena, frame, x, y }) => {
       if (cena === this.game.fase) {
         this.jogador_2.setFrame(frame);
         this.jogador_2.x = x;
@@ -641,72 +640,77 @@ export default class principal extends Phaser.Scene {
 
     this.vida = 3;
     this.vidaPlacar = this.add.sprite(50, 50, "vida").setScrollFactor(0);
+
+    this.game.socket.on("cena-notificar", (cena) => {
+      this.game.scene.stop("principal");
+      this.game.scene.start(cena);
+    });
   }
 
   update() {
     console.log(this.jogador_1.x, this.jogador_1.y);
-    let frame;
     try {
-      frame = this.jogador_1.anims.getFrameName();
+      this.game.socket.emit("estado-publicar", this.game.sala, {
+        cena: this.game.fase,
+        frame: this.jogador_1.anims.getFrameName(),
+        x: this.jogador_1.body.x + 32,
+        y: this.jogador_1.body.y + 32,
+      });
     } catch (e) {
-      frame = 0;
-    }
-    this.game.socket.emit("estado-publicar", this.game.sala, {
-      cena: this.game.fase,
-      frame: frame,
-      x: this.jogador_1.body.x + 32,
-      y: this.jogador_1.body.y + 32,
-    });
-
-    /* Monstro segue personagem mais próximo */
-    let hipotenusa_jogador_1 = Phaser.Math.Distance.Between(
-      this.jogador_1.x,
-      this.monstro.x,
-      this.jogador_1.y,
-      this.monstro.y
-    );
-
-    let hipotenusa_jogador_2 = Phaser.Math.Distance.Between(
-      this.jogador_2.x,
-      this.monstro.x,
-      this.jogador_2.y,
-      this.monstro.y
-    );
-
-    /* Por padrão, o primeiro jogador é o alvo */
-    let alvo = this.jogador_1;
-    if (hipotenusa_jogador_1 > hipotenusa_jogador_2) {
-      /* Jogador 2 é perseguido pelo monstro */
-      alvo = this.jogador_2;
+      console.log(e);
     }
 
-    /* Sentido no eixo X */
-    let diffX = alvo.x - this.monstro.x;
-    if (diffX >= 10) {
-      this.monstro.setVelocityX(30);
-    } else if (diffX <= 10) {
-      this.monstro.setVelocityX(-30);
-    }
+    if (this.vida > 0) {
+      /* Monstro segue personagem mais próximo */
+      let hipotenusa_jogador_1 = Phaser.Math.Distance.Between(
+        this.jogador_1.x,
+        this.monstro.x,
+        this.jogador_1.y,
+        this.monstro.y
+      );
 
-    /* Sentido no eixo Y */
-    let diffY = alvo.y - this.monstro.y;
-    if (diffY >= 10) {
-      this.monstro.setVelocityY(50);
-    } else if (diffY <= 10) {
-      this.monstro.setVelocityY(-50);
-    }
+      let hipotenusa_jogador_2 = Phaser.Math.Distance.Between(
+        this.jogador_2.x,
+        this.monstro.x,
+        this.jogador_2.y,
+        this.monstro.y
+      );
 
-    /* Animação */
-    if (diffX > 0) {
-      this.monstro.anims.play("monstro-direita", true);
-    } else if (diffX < 0) {
-      this.monstro.anims.play("monstro-esquerda", true);
-    } else if (diffY > 0) {
-      this.monstro.anims.play("monstro-baixo", true);
-    } else if (diffY < 0) {
-      this.monstro.anims.play("monstro-cima", true);
-    } else {
-      this.monstro.anims.play("monstro-parado");
+      /* Por padrão, o primeiro jogador é o alvo */
+      let alvo = this.jogador_1;
+      if (hipotenusa_jogador_1 > hipotenusa_jogador_2) {
+        /* Jogador 2 é perseguido pelo monstro */
+        alvo = this.jogador_2;
+      }
+
+      /* Sentido no eixo X */
+      let diffX = alvo.x - this.monstro.x;
+      if (diffX >= 10) {
+        this.monstro.setVelocityX(30);
+      } else if (diffX <= 10) {
+        this.monstro.setVelocityX(-30);
+      }
+
+      /* Sentido no eixo Y */
+      let diffY = alvo.y - this.monstro.y;
+      if (diffY >= 10) {
+        this.monstro.setVelocityY(50);
+      } else if (diffY <= 10) {
+        this.monstro.setVelocityY(-50);
+      }
+
+      /* Animação */
+      if (diffX > 0) {
+        this.monstro.anims.play("monstro-direita", true);
+      } else if (diffX < 0) {
+        this.monstro.anims.play("monstro-esquerda", true);
+      } else if (diffY > 0) {
+        this.monstro.anims.play("monstro-baixo", true);
+      } else if (diffY < 0) {
+        this.monstro.anims.play("monstro-cima", true);
+      } else {
+        this.monstro.anims.play("monstro-parado");
+      }
     }
   }
 
@@ -758,10 +762,16 @@ export default class principal extends Phaser.Scene {
     }
   }
 
-  monstro_alcanca(jogador, monstro) {
+  monstro_alcanca() {
     this.vida--;
     this.vidaPlacar.setFrame(3 - this.vida);
-    this.monstro.x = 1597;
-    this.monstro.y = 740;
+    if (this.vida === 0) {
+      this.game.scene.stop("principal");
+      this.game.scene.start("perda");
+      this.game.socket.emit("cena-publicar", this.game.sala, "perda");
+    } else {
+      this.monstro.x = 1597;
+      this.monstro.y = 740;
+    }
   }
 }
