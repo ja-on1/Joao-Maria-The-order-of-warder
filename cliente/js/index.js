@@ -17,7 +17,7 @@ class Game extends Phaser.Game{
   constructor() {
     super(config);
 
-    this.socket = io();
+    this.socket = io(/* {path: "/adcipt20231/socket.io}"} */);
     this.socket.on("connect", () => {
       console.log("Conectado ao servidor para troca de mensagens.");
     });

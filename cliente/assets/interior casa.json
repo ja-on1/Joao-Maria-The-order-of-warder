@@ -179,7 +179,7 @@
         {
          "columns":20,
          "firstgid":1,
-         "image":"..\/Users\/joaol\/Downloads\/chao.png",
+         "image":"chao.png",
          "imageheight":832,
          "imagewidth":1280,
          "margin":0,
@@ -2549,7 +2549,7 @@
         {
          "columns":16,
          "firstgid":261,
-         "image":"..\/Users\/joaol\/Downloads\/interior.png",
+         "image":"interior.png",
          "imageheight":1024,
          "imagewidth":1024,
          "margin":0,
@@ -4882,7 +4882,7 @@
         {
          "columns":2,
          "firstgid":517,
-         "image":"..\/Users\/joaol\/Downloads\/estante-de-livros.png",
+         "image":"estante-de-livros.png",
          "imageheight":128,
          "imagewidth":128,
          "margin":0,
@@ -4932,7 +4932,7 @@
         {
          "columns":12,
          "firstgid":521,
-         "image":"..\/Users\/joaol\/Downloads\/interior 3.png",
+         "image":"interior 3.png",
          "imageheight":1344,
          "imagewidth":795,
          "margin":0,
