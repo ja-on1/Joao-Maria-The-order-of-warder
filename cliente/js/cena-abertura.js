@@ -4,7 +4,7 @@ export default class abertura extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("abertura", "./assets/abertura.png");
+    this.load.image("servidor", "./assets/servidor.png");
     this.load.spritesheet("botao", "./assets/botões/botao_salas.png", {
       frameWidth: 64,
       frameHeight: 32,
@@ -14,7 +14,7 @@ export default class abertura extends Phaser.Scene {
   create() {
     /* imagem de fundo */
     this.imagem = this.add
-      .image(400, 225, "abertura")
+      .image(400, 225, "servidor")
       .setInteractive()
       .on("pointerdown", () => {
         this.imagem.destroy();
@@ -26,11 +26,11 @@ export default class abertura extends Phaser.Scene {
     this.salas = [
       {
         numero: 1,
-        x: 150,
-        y: 125,
+        x: 200,
+        y: 150,
         frame: 0,
       },
-      {
+     /* {
         numero: 2,
         x: 150,
         y: 175,
@@ -59,7 +59,7 @@ export default class abertura extends Phaser.Scene {
         x: 450,
         y: 125,
         frame: 10,
-      },
+      },*/
     ];
 
     this.salas.forEach((item) => {
