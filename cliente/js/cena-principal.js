@@ -18,6 +18,10 @@ export default class principal extends Phaser.Scene {
     this.load.image("muros", "./assets/muros.png");
     this.load.image("muros2", "./assets/muros2.png");
     this.load.image("cabana", "./assets/cabana.png");
+    this.load.image("estante-de-livros", "./assets/estante-de-livros.png");
+    this.load.image("interior", "./assets/interior.png");
+    this.load.image("interior-3", "./assets/interior-3.png");
+    this.load.image("laboratorio", "./assets/laboratorio.png");
 
     /* Personagem 1 */
     this.load.spritesheet("João", "./assets/players/joao.png", {
@@ -109,6 +113,22 @@ export default class principal extends Phaser.Scene {
     this.tileset_principal_cabana = this.cena_principal.addTilesetImage(
       "cabana",
       "cabana"
+    );
+    this.tileset_principal_estante = this.cena_principal.addTilesetImage(
+      "estante-de-livros",
+      "estante-de-livros"
+    );
+    this.tileset_principal_interior = this.cena_principal.addTilesetImage(
+      "interior",
+      "interior"
+    );
+    this.tileset_principal_interior_3 = this.cena_principal.addTilesetImage(
+      "interior-3",
+      "interior-3"
+    );
+    this.tileset_principal_laboratorio = this.cena_principal.addTilesetImage(
+      "laboratorio",
+      "laboratorio"
     );
 
     /* Layer 0: chão */
@@ -568,6 +588,8 @@ export default class principal extends Phaser.Scene {
     this.muros.setCollisionByProperty({ collides: true });
     this.terreno.setCollisionByProperty({ collides: true });
     this.arcas.setCollisionByProperty({ collides: true });
+    this.objetos.setCollisionByProperty({ collides: true});
+    this.objetos_2.setCollisionByProperty({ collides: true});
 
     /* Colisão entre personagem 1 e mapa (por layer) */
     this.physics.add.collider(
@@ -592,12 +614,27 @@ export default class principal extends Phaser.Scene {
       null,
       this
     );
+    this.physics.add.collider(
+      this.jogador_1,
+      this.objetos,
+      this.collission,
+      null,
+      this
+    );
+    this.physics.add.collider(
+      this.jogador_1,
+      this.objetos_2,
+      this.collission,
+      null,
+      this
+    );
+
     /* Colisão com os limites da cena */
     this.jogador_1.setCollideWorldBounds(true);
 
     /* Cena (960) maior que a tela (800x450) (Ver com Boi sobre o que se trata exatamente*/
-    this.cameras.main.setBounds(0, 0, 3200, 2560); /*50*64, 40*64*/
-    this.physics.world.setBounds(0, 0, 3200, 2560);
+    this.cameras.main.setBounds(0, 0, 8192, 9216); /*128*64, 144*64*/
+    this.physics.world.setBounds(0, 0, 8192, 9216);
     this.cameras.main.startFollow(this.jogador_1);
 
     /* Colisão com objeto */
