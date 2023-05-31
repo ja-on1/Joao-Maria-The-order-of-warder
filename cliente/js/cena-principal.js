@@ -8,7 +8,7 @@ export default class principal extends Phaser.Scene {
     /* Tilemap */
     this.load.tilemapTiledJSON(
       "cena-principal",
-      "./assets/cena-principal.json"
+      "./assets/mapa-completo.json"
     );
 
     /* Tilesets */
