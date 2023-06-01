@@ -10,7 +10,6 @@ export default class final_feliz extends Phaser.Scene {
   create() {
     this.imagem = this.add
       .image(400, 225, "perdeu")
-      .setTint(0xffff00)
       .setInteractive()
       .on("pointerdown", () => {
         this.imagem.destroy();
