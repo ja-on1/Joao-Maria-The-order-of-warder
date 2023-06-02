@@ -347,7 +347,7 @@ export default class principal extends Phaser.Scene {
 
     this.jogador_1_com_mochila = false;
 
-    this.monstro = this.physics.add.sprite(2626, 6915, "monstro");
+    this.monstro = this.physics.add.sprite(2810, 7243, "monstro");
 
     this.physics.add.collider(
       this.jogador_1,
@@ -466,7 +466,7 @@ export default class principal extends Phaser.Scene {
       repeat: -1,
     });
 
-    this.Mochila = this.physics.add.sprite(400, 2463, "Mochila");
+    this.Mochila = this.physics.add.sprite(1438, 8591, "Mochila");
     this.portao = this.physics.add.sprite(2617, 6807, "portao").setImmovable();
 
     this.anims.create({
