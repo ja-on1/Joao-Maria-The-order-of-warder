@@ -347,7 +347,7 @@ export default class principal extends Phaser.Scene {
 
     this.jogador_1_com_mochila = false;
 
-    this.monstro = this.physics.add.sprite(1597, 740, "monstro");
+    this.monstro = this.physics.add.sprite(2626, 6915, "monstro");
 
     this.physics.add.collider(
       this.jogador_1,
