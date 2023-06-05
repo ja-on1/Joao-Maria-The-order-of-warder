@@ -874,9 +874,10 @@ export default class principal extends Phaser.Scene {
   }
 
   monstro_alcanca() {
-    this.vida--;
+    this.vida -= 1;
     this.vidaPlacar.setFrame(3 - this.vida);
-    if (this.vida === 0) {
+
+    if (this.vida <= 0) {
       this.game.scene.stop("principal");
       this.game.scene.start("perda");
       this.game.socket.emit("cena-publicar", this.game.sala, "perda");

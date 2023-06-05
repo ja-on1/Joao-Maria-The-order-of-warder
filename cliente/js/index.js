@@ -16,9 +16,12 @@ import CenadeLaboratorio from "./cena-laboratorio.js";
 class Game extends Phaser.Game {
   constructor() {
     super(config);
+
     let iceServers;
     if (window.location.host === "ifsc.digital") {
-      this.socket = io.connect({ path: "/joao-maria-the-order-of-warder/socket.io/" });
+      this.socket = io.connect({
+        path: "/Joao-Maria-The-order-of-warder/socket.io/",
+      });
 
       iceServers = [
         {
