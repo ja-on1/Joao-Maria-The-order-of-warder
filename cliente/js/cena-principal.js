@@ -76,23 +76,23 @@ export default class principal extends Phaser.Scene {
 
     /* Quadro */
     this.load.spritesheet("quadro1", "assets/quadro1.png", {
-      frameWidth: 87,
-      frameHeight: 29,
+      frameWidth: 112,
+      frameHeight: 128,
     });
 
     this.load.spritesheet("quadro2", "assets/quadro2.png", {
-      frameWidth: 87,
-      frameHeight: 29,
+      frameWidth: 112,
+      frameHeight: 128,
     });
 
     this.load.spritesheet("quadro3", "assets/quadro3.png", {
-      frameWidth: 87,
-      frameHeight: 29,
+      frameWidth: 112,
+      frameHeight: 128,
     });
 
     this.load.spritesheet("quadro4", "assets/quadro4.png", {
-      frameWidth: 87,
-      frameHeight: 29,
+      frameWidth: 112,
+      frameHeight: 128,
     });
 
     /* Sons */
