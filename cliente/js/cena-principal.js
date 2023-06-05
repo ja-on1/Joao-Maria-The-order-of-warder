@@ -19,6 +19,12 @@ export default class principal extends Phaser.Scene {
     this.load.image("interior", "./assets/interior.png");
     this.load.image("interior-3", "./assets/interior-3.png");
     this.load.image("laboratorio", "./assets/laboratorio.png");
+    this.load.image("vazio", "./assets/vazio.png");
+    this.load.image("vazio1", "./assets/vazio.png");
+    this.load.image("quadro1", "./assets/quadro1.png");
+    this.load.image("quadro2", "./assets/quadro2.png");
+    this.load.image("quadro3", "./assets/quadro3.png");
+    this.load.image("quadro4", "./assets/quadro4.png");
 
     /* Personagem 1 */
     this.load.spritesheet("João", "./assets/players/joao.png", {
@@ -64,6 +70,27 @@ export default class principal extends Phaser.Scene {
 
     /*Vida */
     this.load.spritesheet("vida", "assets/vida2.png", {
+      frameWidth: 87,
+      frameHeight: 29,
+    });
+
+    /* Quadro */
+    this.load.spritesheet("quadro1", "assets/quadro1.png", {
+      frameWidth: 87,
+      frameHeight: 29,
+    });
+
+    this.load.spritesheet("quadro2", "assets/quadro2.png", {
+      frameWidth: 87,
+      frameHeight: 29,
+    });
+
+    this.load.spritesheet("quadro3", "assets/quadro3.png", {
+      frameWidth: 87,
+      frameHeight: 29,
+    });
+
+    this.load.spritesheet("quadro4", "assets/quadro4.png", {
       frameWidth: 87,
       frameHeight: 29,
     });
@@ -756,6 +783,30 @@ export default class principal extends Phaser.Scene {
       this.game.scene.stop("principal");
       this.game.scene.start(cena);
     });
+
+    this.vazio = this.physics.add
+      .sprite(2626, 6499, "vazio")
+      .setImmovable(true);
+
+    this.physics.add.collider(
+      this.jogador_1,
+      this.vazio,
+      this.entrar_na_casa,
+      null,
+      this
+    );
+
+    this.vazio1 = this.physics.add
+      .sprite(3562, 8290, "vazio")
+      .setImmovable(true);
+
+    this.physics.add.collider(
+      this.jogador_1,
+      this.vazio1,
+      this.entrar_no_lab,
+      null,
+      this
+    );
   }
 
   update() {
@@ -764,8 +815,8 @@ export default class principal extends Phaser.Scene {
       this.game.socket.emit("estado-publicar", this.game.sala, {
         cena: this.game.fase,
         frame: this.jogador_1.anims.getFrameName(),
-        x: this.jogador_1.body.x + 32,
-        y: this.jogador_1.body.y + 32,
+        x: this.jogador_1.body.x + 16,
+        y: this.jogador_1.body.y + 25,
       });
     } catch (e) {
       console.log(e);
@@ -882,8 +933,26 @@ export default class principal extends Phaser.Scene {
       this.game.scene.start("perda");
       this.game.socket.emit("cena-publicar", this.game.sala, "perda");
     } else {
-      this.monstro.x = 1597;
-      this.monstro.y = 740;
+      this.monstro.x = this.jogador_1.x + 200;
+      this.monstro.y = this.jogador_1.y + 200;
     }
+  }
+
+  entrar_na_casa(jogador, vazio) {
+    this.cameras.main.fadeOut(250);
+    this.cameras.main.once("camerafadeoutcomplete", (camera) => {
+      camera.fadeIn(250);
+      this.jogador_1.x = 2152;
+      this.jogador_1.y = 3367;
+    });
+  }
+
+  entrar_no_lab(jogador, vazio) {
+    this.cameras.main.fadeOut(250);
+    this.cameras.main.once("camerafadeoutcomplete", (camera) => {
+      camera.fadeIn(250);
+      this.jogador_1.x = 6946;
+      this.jogador_1.y = 7719;
+    });
   }
 }
