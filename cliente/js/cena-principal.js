@@ -74,26 +74,11 @@ export default class principal extends Phaser.Scene {
       frameHeight: 29,
     });
 
-    /* Quadro */
-    this.load.spritesheet("quadro1", "assets/quadro1.png", {
-      frameWidth: 112,
-      frameHeight: 128,
-    });
-
-    this.load.spritesheet("quadro2", "assets/quadro2.png", {
-      frameWidth: 112,
-      frameHeight: 128,
-    });
-
-    this.load.spritesheet("quadro3", "assets/quadro3.png", {
-      frameWidth: 112,
-      frameHeight: 128,
-    });
-
-    this.load.spritesheet("quadro4", "assets/quadro4.png", {
-      frameWidth: 112,
-      frameHeight: 128,
-    });
+    /* Quadros */
+    this.load.image("quadro1", "assets/quadro1.png");
+    this.load.image("quadro2", "assets/quadro2.png");
+    this.load.image("quadro3", "assets/quadro3.png");
+    this.load.image("quadro4", "assets/quadro4.png");
 
     /* Sons */
     this.load.audio("metal-som", "./assets/metal.mp3");
@@ -261,11 +246,40 @@ export default class principal extends Phaser.Scene {
       0
     );
 
+    /* Quadros */
+    this.quadro_1 = this.physics.add
+      .sprite(2625, 2680, "quadro1")
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.quadro_1.disableBody(true, true);
+      });
+    
+    this.quadro_2 = this.physics.add
+      .sprite(2855, 2680, "quadro2")
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.quadro_2.disableBody(true, true);
+      });
+    
+    this.quadro_3 = this.physics.add
+      .sprite(3055, 2680, "quadro3")
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.quadro_3.disableBody(true, true);
+      });
+    
+    this.quadro_4 = this.physics.add
+      .sprite(3265, 2680, "quadro4")
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.quadro_4.disableBody(true, true);
+      });
+
     /* jogadores */
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = "João";
       //this.jogador_1 = this.physics.add.sprite(2361, 2229, this.local);
-      this.jogador_1 = this.physics.add.sprite(2626, 6915, this.local);
+      this.jogador_1 = this.physics.add.sprite(2991, 2780, this.local);
       this.remoto = "Maria";
       this.jogador_2 = this.add.sprite(2630, 6920, this.remoto);
     } else {
