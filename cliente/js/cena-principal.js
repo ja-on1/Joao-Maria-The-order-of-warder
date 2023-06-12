@@ -25,6 +25,8 @@ export default class principal extends Phaser.Scene {
     this.load.image("quadro2", "./assets/quadro2.png");
     this.load.image("quadro3", "./assets/quadro3.png");
     this.load.image("quadro4", "./assets/quadro4.png");
+    this.load.image("papel_quadros", "./assets/papel_quadros.png");
+    this.load.image("inventario", "./assets/inventario.png");
 
     /* Personagem 1 */
     this.load.spritesheet("João", "./assets/players/joao.png", {
@@ -248,28 +250,28 @@ export default class principal extends Phaser.Scene {
 
     /* Quadros */
     this.quadro_1 = this.physics.add
-      .sprite(2625, 2680, "quadro1")
+      .sprite(2625, 2699, "quadro1")
       .setInteractive()
       .on("pointerdown", () => {
         this.quadro_1.disableBody(true, true);
       });
-    
+
     this.quadro_2 = this.physics.add
-      .sprite(2855, 2680, "quadro2")
+      .sprite(2855, 2699, "quadro2")
       .setInteractive()
       .on("pointerdown", () => {
         this.quadro_2.disableBody(true, true);
       });
-    
+
     this.quadro_3 = this.physics.add
-      .sprite(3055, 2680, "quadro3")
+      .sprite(3055, 2699, "quadro3")
       .setInteractive()
       .on("pointerdown", () => {
         this.quadro_3.disableBody(true, true);
       });
-    
+
     this.quadro_4 = this.physics.add
-      .sprite(3265, 2680, "quadro4")
+      .sprite(3265, 2699, "quadro4")
       .setInteractive()
       .on("pointerdown", () => {
         this.quadro_4.disableBody(true, true);
@@ -338,7 +340,7 @@ export default class principal extends Phaser.Scene {
 
     /* Recebimento de oferta de mídia */
     this.game.socket.on("offer", (description) => {
-      this.game.remoteConnection = new RTCPeerConnection(this.ice_servers);
+      this.game.remoteConnection = new RTCPeerConnection(this.game.ice_servers);
 
       /* Associação de mídia com conexão remota */
       this.game.midias
@@ -356,7 +358,7 @@ export default class principal extends Phaser.Scene {
       /* Associação com o objeto HTML de áudio */
       let midias = this.game.midias;
       this.game.remoteConnection.ontrack = ({ streams: [midias] }) => {
-        this.game.audio.srcObject = this.game.midias;
+        this.game.audio.srcObject = midias;
       };
 
       /* Contraoferta de mídia */
@@ -668,6 +670,7 @@ export default class principal extends Phaser.Scene {
       .setInteractive()
       .on("pointerdown", () => {
         this.botao_menu.setFrame(13);
+        this.mostrar_inventario();
       })
       .on("pointerup", () => {
         this.botao_menu.setFrame(12);
@@ -679,6 +682,7 @@ export default class principal extends Phaser.Scene {
       .setInteractive()
       .on("pointerdown", () => {
         this.botao_a.setFrame(9);
+        this.movimentar_quadro(this.jogador_1, this.quadro_1);
       })
       .on("pointerup", () => {
         this.botao_a.setFrame(8);
@@ -968,5 +972,30 @@ export default class principal extends Phaser.Scene {
       this.jogador_1.x = 6946;
       this.jogador_1.y = 7719;
     });
+  }
+
+  movimentar_quadro(sprite1, sprite2) {
+    if (
+      Phaser.Geom.Intersects.RectangleToRectangle(
+        this.jogador_1.getBounds(),
+        this.quadro_1.getBounds()
+      )
+    ) {
+      sprite2.x = sprite1.x;
+      sprite2.y = sprite1.y;
+    }
+  }
+
+  mostrar_inventario() {
+    this.inventario = this.add
+      .image(
+        this.game.config.width / 2,
+        this.game.config.height / 2,
+        "inventario"
+      )
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.inventario.destroy();
+      });
   }
 }
