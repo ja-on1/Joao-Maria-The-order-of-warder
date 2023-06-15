@@ -21,12 +21,9 @@ export default class principal extends Phaser.Scene {
     this.load.image("laboratorio", "./assets/laboratorio.png");
     this.load.image("vazio", "./assets/vazio.png");
     this.load.image("vazio1", "./assets/vazio.png");
-    this.load.image("quadro1", "./assets/quadro1.png");
-    this.load.image("quadro2", "./assets/quadro2.png");
-    this.load.image("quadro3", "./assets/quadro3.png");
-    this.load.image("quadro4", "./assets/quadro4.png");
     this.load.image("papel_quadros", "./assets/papel_quadros.png");
     this.load.image("inventario", "./assets/inventario.png");
+    this.load.image("baby-warder", "./assets/baby-warder.png");
 
     /* Personagem 1 */
     this.load.spritesheet("João", "./assets/players/joao.png", {
@@ -825,6 +822,30 @@ export default class principal extends Phaser.Scene {
       null,
       this
     );
+
+    this.vazio2 = this.physics.add
+      .sprite(2100, 3350, "vazio")
+      .setImmovable(true);
+
+    this.physics.add.collider(
+      this.jogador_1,
+      this.vazio2,
+      this.sair_da_casa,
+      null,
+      this
+    );
+
+    this.vazio3 = this.physics.add
+      .sprite(7468, 7129, "vazio")
+      .setImmovable(true);
+
+    this.physics.add.collider(
+      this.jogador_1,
+      this.vazio3,
+      this.sair_do_lab,
+      null,
+      this
+    );
   }
 
   update() {
@@ -974,6 +995,23 @@ export default class principal extends Phaser.Scene {
     });
   }
 
+  sair_da_casa(jogador, vazio) {
+    this.cameras.main.fadeOut(250);
+    this.cameras.main.once("camerafadeoutcomplete", (camera) => {
+      camera.fadeIn(250);
+      this.jogador_1.x = 2626;
+      this.jogador_1.y = 6576;
+    });
+  }
+
+  sair_do_lab(jogador, vazio) {
+    this.cameras.main.fadeOut(250);
+    this.cameras.main.once("camerafadeoutcomplete", (camera) => {
+      camera.fadeIn(250);
+      this.jogador_1.x = 3600;
+      this.jogador_1.y = 7975;
+    });
+  }
   movimentar_quadro(sprite1, sprite2) {
     if (
       Phaser.Geom.Intersects.RectangleToRectangle(
