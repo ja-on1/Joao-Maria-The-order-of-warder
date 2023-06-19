@@ -826,7 +826,7 @@ export default class principal extends Phaser.Scene {
     );
 
     this.vazio2 = this.physics.add
-      .sprite(2100, 3350, "vazio")
+      .sprite(2152, 3357, "vazio")
       .setImmovable(true);
 
     this.physics.add.collider(
@@ -1002,7 +1002,7 @@ export default class principal extends Phaser.Scene {
     this.cameras.main.once("camerafadeoutcomplete", (camera) => {
       camera.fadeIn(250);
       this.jogador_1.x = 2626;
-      this.jogador_1.y = 6576;
+      this.jogador_1.y = 6573;
     });
   }
 
