@@ -826,7 +826,7 @@ export default class principal extends Phaser.Scene {
     );
 
     this.vazio2 = this.physics.add
-      .sprite(2152, 3357, "vazio")
+      .sprite(2216, 3328, "vazio")
       .setImmovable(true);
 
     this.physics.add.collider(
@@ -848,6 +848,8 @@ export default class principal extends Phaser.Scene {
       null,
       this
     );
+
+    this.baby_warder = this.add.sprite(6709, 7189)
   }
 
   update() {
