@@ -245,6 +245,8 @@ export default class principal extends Phaser.Scene {
       0
     );
 
+    this.input.addPointer(2);
+
     /* Quadros */
     this.quadro_1 = this.physics.add
       .sprite(2625, 2699, "quadro1")
