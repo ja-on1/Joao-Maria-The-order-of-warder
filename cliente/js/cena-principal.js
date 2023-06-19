@@ -248,33 +248,13 @@ export default class principal extends Phaser.Scene {
     this.input.addPointer(2);
 
     /* Quadros */
-    this.quadro_1 = this.physics.add
-      .sprite(2625, 2699, "quadro1")
-      .setInteractive()
-      .on("pointerdown", () => {
-        this.quadro_1.disableBody(true, true);
-      });
+    this.quadro_1 = this.physics.add.sprite(2625, 2699, "quadro1");
 
-    this.quadro_2 = this.physics.add
-      .sprite(2855, 2699, "quadro2")
-      .setInteractive()
-      .on("pointerdown", () => {
-        this.quadro_2.disableBody(true, true);
-      });
+    this.quadro_2 = this.physics.add.sprite(2855, 2699, "quadro2");
 
-    this.quadro_3 = this.physics.add
-      .sprite(3055, 2699, "quadro3")
-      .setInteractive()
-      .on("pointerdown", () => {
-        this.quadro_3.disableBody(true, true);
-      });
+    this.quadro_3 = this.physics.add.sprite(3055, 2699, "quadro3");
 
-    this.quadro_4 = this.physics.add
-      .sprite(3265, 2699, "quadro4")
-      .setInteractive()
-      .on("pointerdown", () => {
-        this.quadro_4.disableBody(true, true);
-      });
+    this.quadro_4 = this.physics.add.sprite(3265, 2699, "quadro4");
 
     /* jogadores */
     if (this.game.jogadores.primeiro === this.game.socket.id) {
@@ -826,7 +806,7 @@ export default class principal extends Phaser.Scene {
     );
 
     this.vazio2 = this.physics.add
-      .sprite(2216, 3328, "vazio")
+      .sprite(2152, 3420, "vazio")
       .setImmovable(true);
 
     this.physics.add.collider(
@@ -849,7 +829,16 @@ export default class principal extends Phaser.Scene {
       this
     );
 
-    this.baby_warder = this.add.sprite(6709, 7189)
+    this.baby_warder = this.physics.add.sprite(
+      6709,
+      7189,
+      "baby-warder"
+    ).setInteractive;
+
+    this.physics.add.collider(this.jogador_1, this.quadro_1, null, null, this);
+    this.physics.add.collider(this.jogador_1, this.quadro_2, null, null, this);
+    this.physics.add.collider(this.jogador_1, this.quadro_3, null, null, this);
+    this.physics.add.collider(this.jogador_1, this.quadro_4, null, null, this);
   }
 
   update() {
@@ -986,7 +975,7 @@ export default class principal extends Phaser.Scene {
     this.cameras.main.once("camerafadeoutcomplete", (camera) => {
       camera.fadeIn(250);
       this.jogador_1.x = 2152;
-      this.jogador_1.y = 3367;
+      this.jogador_1.y = 3360;
     });
   }
 
@@ -1016,6 +1005,7 @@ export default class principal extends Phaser.Scene {
       this.jogador_1.y = 7975;
     });
   }
+
   movimentar_quadro(sprite1, sprite2) {
     if (
       Phaser.Geom.Intersects.RectangleToRectangle(
@@ -1029,15 +1019,13 @@ export default class principal extends Phaser.Scene {
   }
 
   mostrar_inventario() {
+    console.log("inventário");
     this.inventario = this.add
-      .image(
-        this.game.config.width / 2,
-        this.game.config.height / 2,
-        "inventario"
-      )
+      .image(this.jogador_1.x, this.jogador_1.y, "inventario")
       .setInteractive()
       .on("pointerdown", () => {
         this.inventario.destroy();
+        this.botao_menu.setFrame(12);
       });
   }
 }
