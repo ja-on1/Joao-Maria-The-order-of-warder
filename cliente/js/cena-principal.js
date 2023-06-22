@@ -91,7 +91,6 @@ export default class principal extends Phaser.Scene {
       frameHeight: 32,
     });
 
-    /* notificação */
     /* Artefato */
     this.load.spritesheet("noticacao", "./assets/notificacao1.png", {
       frameWidth: 32,
@@ -280,6 +279,12 @@ export default class principal extends Phaser.Scene {
     this.interruptor.body.setAllowGravity(false);
     this.interruptor.body.setImmovable(true);
 
+    // interruptor2
+    this.interruptor2 = this.physics.add.sprite(6819, 7245, "interruptor");
+    this.interruptor2.setFrame(0);
+    this.interruptor2.body.setAllowGravity(false);
+    this.interruptor2.body.setImmovable(true);
+
     /* Quadros */
     this.quadro_1 = this.physics.add.sprite(2625, 2750, "quadro1");
 
@@ -292,15 +297,14 @@ export default class principal extends Phaser.Scene {
     /* jogadores */
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = "João";
-      //this.jogador_1 = this.physics.add.sprite(2361, 2229, this.local);
-      this.jogador_1 = this.physics.add.sprite(2991, 2780, this.local);
+      this.jogador_1 = this.physics.add.sprite(4208, 7268, this.local);
       this.remoto = "Maria";
-      this.jogador_2 = this.add.sprite(7209, 7193, this.remoto);
+      this.jogador_2 = this.add.sprite(4208, 7268, this.remoto);
     } else {
       this.remoto = "João";
-      this.jogador_2 = this.add.sprite(7209, 7193, this.remoto);
+      this.jogador_2 = this.add.sprite(4208, 7268, this.remoto);
       this.local = "Maria";
-      this.jogador_1 = this.physics.add.sprite(2630, 6920, this.local);
+      this.jogador_1 = this.physics.add.sprite(4208, 7268, this.local);
 
       /* Captura de áudio */
       navigator.mediaDevices
@@ -769,6 +773,15 @@ export default class principal extends Phaser.Scene {
       this
     );
 
+    /* Colisão entre jogador 1 e interruptor 2 */
+    this.physics.add.overlap(
+      this.jogador_1,
+      this.interruptor2,
+      this.pressionarbotao2,
+      null,
+      this
+    );
+
     /* Colisão com os limites da cena */
     this.jogador_1.setCollideWorldBounds(true);
 
@@ -1098,6 +1111,14 @@ export default class principal extends Phaser.Scene {
 
   pressionarbotao() {
     this.interruptor.setFrame(1);
+    this.game.socket.emit("artefatos-publicar", this.game.sala, {
+      vazio: true,
+    });
+    this.vazio1.enableBody(true, 3562, 8290, true, true);
+  }
+
+  pressionarbotao2() {
+    this.interruptor2.setFrame(1);
     this.game.socket.emit("artefatos-publicar", this.game.sala, {
       vazio: true,
     });
