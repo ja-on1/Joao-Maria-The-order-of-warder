@@ -73,6 +73,12 @@ export default class principal extends Phaser.Scene {
       frameHeight: 29,
     });
 
+    /* Alavanca */
+    this.load.spritesheet("interruptor", "./assets/objetos/interruptor.png", {
+      frameWidth: 41,
+      frameHeight: 32,
+    });
+
     /* Quadros */
     this.load.image("quadro1", "assets/quadro1.png");
     this.load.image("quadro2", "assets/quadro2.png");
@@ -268,6 +274,12 @@ export default class principal extends Phaser.Scene {
       this.jogador_2 = this.add.sprite(2626, 6915, this.remoto);
       this.local = "Maria";
       this.jogador_1 = this.physics.add.sprite(2630, 6920, this.local);
+
+      // interruptor1
+      this.interruptor = this.physics.add.sprite(2621, 2777, "interruptor");
+      this.interruptor.setFrame(0);
+      this.interruptor.body.setAllowGravity(false);
+      this.interruptor.body.setImmovable(true);
 
       /* Captura de áudio */
       navigator.mediaDevices
@@ -727,6 +739,15 @@ export default class principal extends Phaser.Scene {
       this
     );
 
+    /* Colisão entre jogador 1 e interruptor 1 */
+    this.physics.add.overlap(
+      this.jogador_1,
+      this.interruptor,
+      this.pressionarbotao,
+      null,
+      this
+    );
+
     /* Colisão com os limites da cena */
     this.jogador_1.setCollideWorldBounds(true);
 
@@ -1027,5 +1048,24 @@ export default class principal extends Phaser.Scene {
         this.inventario.destroy();
         this.botao_menu.setFrame(12);
       });
+  }
+
+  pressionarbotao() {
+    this.interruptor.setFrame(1);
+    this.barreiras[0].objeto.disableBody(true, true);
+    this.game.socket.emit("artefatos-publicar", this.game.sala, {
+      barreiras: this.barreiras.map((item) => item.objeto.visible),
+    });
+
+    if (!this.contando) {
+      this.tempo = 3;
+      this.contador = this.time.addEvent({
+        delay: 1000,
+        callback: this.contagem_regressiva,
+        callbackScope: this,
+        loop: true,
+      });
+      this.contando = true;
+    }
   }
 }
