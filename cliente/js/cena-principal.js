@@ -74,8 +74,27 @@ export default class principal extends Phaser.Scene {
     });
 
     /* Alavanca */
-    this.load.spritesheet("interruptor", "./assets/objetos/interruptor.png", {
+    this.load.spritesheet("interruptor", "./assets/interruptor.png", {
       frameWidth: 41,
+      frameHeight: 32,
+    });
+
+    /* Artefato */
+    this.load.spritesheet("faca", "./assets/faca.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+
+    /* Artefato */
+    this.load.spritesheet("botaoportao", "./assets/botaoportao.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+
+    /* notificação */
+    /* Artefato */
+    this.load.spritesheet("noticacao", "./assets/notificacao1.png", {
+      frameWidth: 32,
       frameHeight: 32,
     });
 
@@ -253,14 +272,22 @@ export default class principal extends Phaser.Scene {
 
     this.input.addPointer(2);
 
+    this.faca = this.physics.add.sprite(7032, 7378, "faca");
+
+    // interruptor1
+    this.interruptor = this.physics.add.sprite(3064, 2777, "interruptor");
+    this.interruptor.setFrame(0);
+    this.interruptor.body.setAllowGravity(false);
+    this.interruptor.body.setImmovable(true);
+
     /* Quadros */
-    this.quadro_1 = this.physics.add.sprite(2625, 2699, "quadro1");
+    this.quadro_1 = this.physics.add.sprite(2625, 2750, "quadro1");
 
-    this.quadro_2 = this.physics.add.sprite(2855, 2699, "quadro2");
+    this.quadro_2 = this.physics.add.sprite(2855, 2750, "quadro2");
 
-    this.quadro_3 = this.physics.add.sprite(3055, 2699, "quadro3");
+    this.quadro_3 = this.physics.add.sprite(3055, 2750, "quadro3");
 
-    this.quadro_4 = this.physics.add.sprite(3265, 2699, "quadro4");
+    this.quadro_4 = this.physics.add.sprite(3265, 2750, "quadro4");
 
     /* jogadores */
     if (this.game.jogadores.primeiro === this.game.socket.id) {
@@ -268,18 +295,12 @@ export default class principal extends Phaser.Scene {
       //this.jogador_1 = this.physics.add.sprite(2361, 2229, this.local);
       this.jogador_1 = this.physics.add.sprite(2991, 2780, this.local);
       this.remoto = "Maria";
-      this.jogador_2 = this.add.sprite(2630, 6920, this.remoto);
+      this.jogador_2 = this.add.sprite(7209, 7193, this.remoto);
     } else {
       this.remoto = "João";
-      this.jogador_2 = this.add.sprite(2626, 6915, this.remoto);
+      this.jogador_2 = this.add.sprite(7209, 7193, this.remoto);
       this.local = "Maria";
       this.jogador_1 = this.physics.add.sprite(2630, 6920, this.local);
-
-      // interruptor1
-      this.interruptor = this.physics.add.sprite(2621, 2777, "interruptor");
-      this.interruptor.setFrame(0);
-      this.interruptor.body.setAllowGravity(false);
-      this.interruptor.body.setImmovable(true);
 
       /* Captura de áudio */
       navigator.mediaDevices
@@ -792,6 +813,9 @@ export default class principal extends Phaser.Scene {
       if (artefatos.portao) {
         this.passando_pelo_portao();
       }
+      if (artefatos.vazio) {
+        this.vazio1.enableBody(true, 3562, 8290, true, true);
+      }
     });
 
     this.vida = 3;
@@ -816,7 +840,8 @@ export default class principal extends Phaser.Scene {
 
     this.vazio1 = this.physics.add
       .sprite(3562, 8290, "vazio")
-      .setImmovable(true);
+      .setImmovable(true)
+      .disableBody(true, true);
 
     this.physics.add.collider(
       this.jogador_1,
@@ -839,13 +864,25 @@ export default class principal extends Phaser.Scene {
     );
 
     this.vazio3 = this.physics.add
-      .sprite(7468, 7129, "vazio")
+      .sprite(7468, 7100, "vazio")
       .setImmovable(true);
 
     this.physics.add.collider(
       this.jogador_1,
       this.vazio3,
       this.sair_do_lab,
+      null,
+      this
+    );
+
+    this.vazio = this.physics.add
+      .sprite(1753, 1881, "vazio")
+      .setImmovable(true);
+
+    this.physics.add.collider(
+      this.jogador_1,
+      this.vazio,
+      this.entrar_no_lab2,
       null,
       this
     );
@@ -1027,6 +1064,15 @@ export default class principal extends Phaser.Scene {
     });
   }
 
+  entrar_no_lab2(jogador, vazio) {
+    this.cameras.main.fadeOut(250);
+    this.cameras.main.once("camerafadeoutcomplete", (camera) => {
+      camera.fadeIn(250);
+      this.jogador_1.x = 3550;
+      this.jogador_1.y = 8378;
+    });
+  }
+
   movimentar_quadro(sprite1, sprite2) {
     if (
       Phaser.Geom.Intersects.RectangleToRectangle(
@@ -1052,20 +1098,9 @@ export default class principal extends Phaser.Scene {
 
   pressionarbotao() {
     this.interruptor.setFrame(1);
-    this.barreiras[0].objeto.disableBody(true, true);
     this.game.socket.emit("artefatos-publicar", this.game.sala, {
-      barreiras: this.barreiras.map((item) => item.objeto.visible),
+      vazio: true,
     });
-
-    if (!this.contando) {
-      this.tempo = 3;
-      this.contador = this.time.addEvent({
-        delay: 1000,
-        callback: this.contagem_regressiva,
-        callbackScope: this,
-        loop: true,
-      });
-      this.contando = true;
-    }
+    this.vazio1.enableBody(true, 3562, 8290, true, true);
   }
 }
