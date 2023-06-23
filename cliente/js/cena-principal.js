@@ -114,6 +114,7 @@ export default class principal extends Phaser.Scene {
 
     /* Trilha Sonora */
     this.trilha = this.sound.add("trilha");
+    this.trilha.loop = true;
     this.trilha.play();
 
     /* Tilemap */
