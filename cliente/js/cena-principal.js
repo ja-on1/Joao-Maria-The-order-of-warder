@@ -927,6 +927,7 @@ export default class principal extends Phaser.Scene {
   }
 
   update() {
+    console.log(this.jogador_1.x, this.jogador_1.y)
     try {
       this.game.socket.emit("estado-publicar", this.game.sala, {
         cena: this.game.fase,
