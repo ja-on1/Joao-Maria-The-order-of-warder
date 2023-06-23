@@ -16,10 +16,6 @@ export default class final_feliz extends Phaser.Scene {
         this.texto.destroy();
         this.game.scene.start("abertura");
       });
-
-    this.texto = this.add.text(490, 50, "perda", {
-      fill: "#000000",
-    });
   }
 
   upload() {}
