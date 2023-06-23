@@ -24,6 +24,7 @@ export default class principal extends Phaser.Scene {
     this.load.image("papel_quadros", "./assets/papel_quadros.png");
     this.load.image("inventario", "./assets/inventario.png");
     this.load.image("baby-warder", "./assets/baby-warder.png");
+    this.load.image("ganhou", "./assets/ganhou.png");
 
     /* Personagem 1 */
     this.load.spritesheet("João", "./assets/players/joao.png", {
