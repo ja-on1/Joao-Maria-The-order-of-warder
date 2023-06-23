@@ -681,14 +681,19 @@ export default class principal extends Phaser.Scene {
       })
       .setScrollFactor(0);
 
+    this.inventario = this.add.sprite(0, 0, "papel_quadros").setVisible(false)
+
     this.botao_menu = this.add
       .sprite(400, 400, "botao.", 12)
       .setInteractive()
       .on("pointerdown", () => {
+        this.inventario.x = this.jogador_1.x
+        this.inventario.y = this.jogador_1.y
+        this.inventario.setVisible(true)
         this.botao_menu.setFrame(13);
-        this.mostrar_inventario();
       })
       .on("pointerup", () => {
+        this.inventario.setVisible(false)
         this.botao_menu.setFrame(12);
       })
       .setScrollFactor(0);
@@ -1116,17 +1121,6 @@ export default class principal extends Phaser.Scene {
       sprite2.x = sprite1.x;
       sprite2.y = sprite1.y;
     }
-  }
-
-  mostrar_inventario() {
-    console.log("papel_quadros");
-    this.inventario = this.add
-      .image(this.jogador_1.x, this.jogador_1.y, "papel_quadros")
-      .setInteractive()
-      .on("pointerdown", () => {
-        this.inventario.destroy();
-        this.botao_menu.setFrame(12);
-      });
   }
 
   pressionarbotao() {
