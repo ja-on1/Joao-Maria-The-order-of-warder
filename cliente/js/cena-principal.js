@@ -910,10 +910,11 @@ export default class principal extends Phaser.Scene {
     this.physics.add.collider(this.jogador_1, this.quadro_2, null, null, this);
     this.physics.add.collider(this.jogador_1, this.quadro_3, null, null, this);
     this.physics.add.collider(this.jogador_1, this.quadro_4, null, null, this);
+
+    this.finalFeliz = this.physics.add.sprite(4000, 7264, "vazio")
   }
 
   update() {
-    console.log(this.jogador_1.x, this.jogador_1.y);
     try {
       this.game.socket.emit("estado-publicar", this.game.sala, {
         cena: this.game.fase,
@@ -976,6 +977,20 @@ export default class principal extends Phaser.Scene {
       } else {
         this.monstro.anims.play("monstro-parado");
       }
+    }
+
+    if (
+      Phaser.Geom.Intersects.RectangleToRectangle(
+        this.jogador_1.getBounds(),
+        this.finalFeliz.getBounds()
+      ) &&
+      Phaser.Geom.Intersects.RectangleToRectangle(
+        this.jogador_2.getBounds(),
+        this.finalFeliz.getBounds()
+      )
+    ){
+      this.game.scene.stop("principal");
+      this.game.scene.start("finalFeliz");
     }
   }
 
