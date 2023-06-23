@@ -829,6 +829,10 @@ export default class principal extends Phaser.Scene {
       if (artefatos.vazio) {
         this.vazio1.enableBody(true, 3562, 8290, true, true);
       }
+
+      if (artefatos.vazio) {
+        this.vazio3.enableBody(true, 7472, 7129, true, true);
+      }
     });
 
     this.vida = 3;
@@ -878,7 +882,8 @@ export default class principal extends Phaser.Scene {
 
     this.vazio3 = this.physics.add
       .sprite(7468, 7100, "vazio")
-      .setImmovable(true);
+      .setImmovable(true)
+      .disableBody(true, true);
 
     this.physics.add.collider(
       this.jogador_1,
@@ -1072,8 +1077,8 @@ export default class principal extends Phaser.Scene {
     this.cameras.main.fadeOut(250);
     this.cameras.main.once("camerafadeoutcomplete", (camera) => {
       camera.fadeIn(250);
-      this.jogador_1.x = 3600;
-      this.jogador_1.y = 7975;
+      this.jogador_1.x = 3064;
+      this.jogador_1.y = 2993;
     });
   }
 
@@ -1099,9 +1104,9 @@ export default class principal extends Phaser.Scene {
   }
 
   mostrar_inventario() {
-    console.log("inventário");
+    console.log("papel_quadros");
     this.inventario = this.add
-      .image(this.jogador_1.x, this.jogador_1.y, "inventario")
+      .image(this.jogador_1.x, this.jogador_1.y, "papel_quadros")
       .setInteractive()
       .on("pointerdown", () => {
         this.inventario.destroy();
@@ -1122,6 +1127,6 @@ export default class principal extends Phaser.Scene {
     this.game.socket.emit("artefatos-publicar", this.game.sala, {
       vazio: true,
     });
-    this.vazio1.enableBody(true, 3562, 8290, true, true);
+    this.vazio3.enableBody(true, 7472, 7129, true, true);
   }
 }
