@@ -12,6 +12,8 @@ import CenaDeperda from "./cena-perda.js";
 import CenaDecasa from "./cena-casa.js";
 // Cena Laboratorio
 import CenadeLaboratorio from "./cena-laboratorio.js";
+import finalFeliz from "./cena-final-feliz.js";
+// Final feliz
 
 class Game extends Phaser.Game {
   constructor() {
@@ -56,6 +58,7 @@ class Game extends Phaser.Game {
     this.scene.add("perda", CenaDeperda);
     this.scene.add("casa", CenaDecasa);
     this.scene.add("laboratorio", CenadeLaboratorio);
+    this.scene.add("finalFeliz", finalFeliz);
 
     //
     // Iniciar pela cena de abertura
