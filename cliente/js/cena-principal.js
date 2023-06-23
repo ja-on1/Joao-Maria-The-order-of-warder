@@ -923,7 +923,7 @@ export default class principal extends Phaser.Scene {
     this.physics.add.collider(this.jogador_1, this.quadro_3, null, null, this);
     this.physics.add.collider(this.jogador_1, this.quadro_4, null, null, this);
 
-    this.finalFeliz = this.physics.add.sprite(4000, 7264, "vazio")
+    this.finalFeliz = this.physics.add.sprite(2944, 2306, "vazio")
   }
 
   update() {
